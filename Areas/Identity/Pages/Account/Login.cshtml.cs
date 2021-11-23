@@ -87,6 +87,12 @@ namespace SportiveOrder.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    var user = _userManager.FindByNameAsync(Input.UserName).Result;
+                    var role =_userManager.GetRolesAsync(user).Result;
+                    if (role.Contains("Admin"))
+                    {
+                        return RedirectToAction("Index", "Home", new { area = "Admin" });
+                    }
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }

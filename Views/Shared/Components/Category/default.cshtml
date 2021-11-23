@@ -1,0 +1,16 @@
+﻿@model List<Category>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title @(ViewBag.category_id?.ToString() == null? "font-weight-bold":"")"><a asp-action="Index" asp-controller="Home" >Tüm Kataegoriler</a></h4>
+    </div>
+</div>
+
+@foreach (var item in Model)
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title @(ViewBag.category_id?.ToString() == item.CategoryId.ToString()? "font-weight-bold":"")"><a asp-action="Index" asp-controller="Home" asp-route-category_id="@item.CategoryId">@item.CategoryName</a></h4>
+        </div>
+    </div>
+}

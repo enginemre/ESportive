@@ -10,6 +10,8 @@ using SportiveOrder.Areas.Identity;
 using SportiveOrder.Areas.Identity.Data;
 using SportiveOrder.Areas.Identity.Pages;
 using SportiveOrder.Context;
+using SportiveOrder.Interfaces;
+using SportiveOrder.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,6 +57,15 @@ namespace SportiveOrder
                 opt.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict;
                 opt.ExpireTimeSpan = TimeSpan.FromMinutes(30);
             });
+            // Dependecy Injection
+            services.AddScoped<ICartRepository, CartRepositories>();
+            services.AddScoped<ICategoryRepository, CategoryRepositories>();
+            services.AddScoped<IProductRepository, ProductRepositories>();
+            services.AddScoped<IAddressRepository, AddressRepositories>();
+            services.AddScoped<ICompanyRepository, CompanyRepositories>();
+            services.AddScoped<IOrderRepository, OrderRepositories>();
+            services.AddScoped<IUserRepository, UserRepositories>();
+            services.AddScoped<IOrderItemsRepository, OrderItemsRepositories>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -82,6 +93,8 @@ namespace SportiveOrder
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                   name: "areas", pattern: "{area}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

@@ -1,0 +1,25 @@
+﻿@model List<Product>;
+
+@foreach (var item in Model)
+{
+    @if (Model.Count > 0)
+    {
+        <div class="col-sm-4">
+            <div class="product-image-wrapper">
+                <div class="single-products">
+                    <div class="productinfo text-center">
+                        <img src="~/images/product1.jpg" alt="Resim Yok" />
+                        <h2>@item.SalePrice ₺</h2>
+                        <p>@item.ProductName</p>
+                        <a class="btn btn-default add-to-cart" asp-action="Details" asp-controller="Home" asp-route-id="@item.ProductId"><i class="fa fa-shopping-cart"></i>Detay</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning text-center"> Hiçbir ürün  bulunamadı</div>
+    }
+
+}

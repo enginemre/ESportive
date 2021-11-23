@@ -11,10 +11,23 @@ namespace SportiveOrder.Context
 {
     public class SportiveOrderContext:IdentityDbContext<AppUser>
     {
+
+
         public SportiveOrderContext(DbContextOptions<SportiveOrderContext> options):base(options)
         {
 
         }
+
+        public SportiveOrderContext()
+        {
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Server=ENGIN;Database=SportiveOrder;Trusted_Connection=True;MultipleActiveResultSets=true");
+            base.OnConfiguring(optionsBuilder);
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Şirket Adres bire-bir ilişki 

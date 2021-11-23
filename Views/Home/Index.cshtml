@@ -2,7 +2,44 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+@if (TempData["Msg"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Sepete Eklendi!</strong> @TempData["Msg"].ToString()
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+
+<section>
+    <div class="container m-4">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="left-sidebar">
+                    <h2>Kategoriler</h2>
+                    <div class="panel-group category-products" id="accordian">
+                        <!--category-productsr-->
+                        @await Component.InvokeAsync("Category")
+
+                    </div><!--/category-products-->
+
+                </div>
+            </div>
+
+            <div class="col-sm-9 padding-right">
+                <div class="features_items">
+                    <h2 class="title text-center">Ürünler</h2>
+                    <div class="row">
+                        @await Component.InvokeAsync("Product", new { category_id = ViewBag.category_id });
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
