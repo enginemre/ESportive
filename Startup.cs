@@ -35,7 +35,7 @@ namespace SportiveOrder
             services.AddDbContext<SportiveOrderContext>(options =>
                              options.UseSqlServer(
                                  Configuration.GetConnectionString("SportiveOrderContextConnection")));
-
+            // Identity konfigrasyonlarý yapýlýyor.
             services.AddIdentity<AppUser, IdentityRole>(options =>
             {
                 options.Password.RequireDigit = true;
@@ -46,6 +46,15 @@ namespace SportiveOrder
                 options.SignIn.RequireConfirmedPhoneNumber = false;
                 options.SignIn.RequireConfirmedEmail = false;
             }).AddEntityFrameworkStores<SportiveOrderContext>();
+            // Authorize için yönlendirme ayarlarý yapýlýyor.
+            services.ConfigureApplicationCookie(opt =>
+            {
+                opt.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Identity/Account/Login");
+                opt.Cookie.Name = "ESportive";
+                opt.Cookie.HttpOnly = true;
+                opt.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict;
+                opt.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
