@@ -1,0 +1,53 @@
+﻿@model IEnumerable<CRUDUser>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+@if(ViewBag.msg != null){
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    @ViewBag.msg
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-controller="User" asp-area="Admin" asp-route-UserId="@item.UserId">Edit</a> |
+                <a asp-action="Delete"asp-controller="User" asp-area="Admin" asp-route-UserId="@item.UserId">Delete</a>
+                <a asp-action="ChangePassword" asp-controller="User" asp-area="Admin" asp-route-UserId="@item.UserId">Change Password</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

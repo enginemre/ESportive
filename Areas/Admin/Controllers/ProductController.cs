@@ -8,9 +8,9 @@ using SportiveOrder.Models;
 namespace SportiveOrder.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class ProductController : Controller
+    public class ProductController : Microsoft.AspNetCore.Mvc.Controller
     {
-        private readonly IProductRepository _productRepository;
+        private readonly  IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepository;
         public ProductController(IProductRepository rep,ICategoryRepository categoryRepository)
         {
@@ -20,8 +20,27 @@ namespace SportiveOrder.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
+            var productList = _productRepository.GetEntities();
+            foreach (var cat in _categoryRepository.GetEntities())
+            {
+                foreach (var pro in productList)
+                {
+                    if(pro.CategoryId == cat.CategoryId)
+                    {
+                        pro.Category = new Category
+                        {
+                            CategoryId = pro.CategoryId,
+                            CategoryName = cat.CategoryName,
+
+                        };
+                    }
+                }
+            }
+          
+            
+
             // Mevcut Ürünler listeleniyor...
-            return View(_productRepository.GetEntities());
+            return View(productList);
         }
         public IActionResult Edit(int id)
         {

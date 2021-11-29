@@ -22,7 +22,7 @@ namespace SportiveOrder.Entity
         [Column(TypeName = "char")]
         [MaxLength(5)]
         public string PostCode { get; set; }
-
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Company Company { get; set; }
 
         public int CompanyId { get; set; }

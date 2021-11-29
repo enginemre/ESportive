@@ -11,7 +11,7 @@ namespace SportiveOrder.Areas.Admin.Controllers
 {
     [Authorize]
     [Area("Admin")]
-    public class HomeController : Controller
+    public class HomeController : Microsoft.AspNetCore.Mvc.Controller
     {
 
         private readonly SignInManager<AppUser> _signInManager;

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace SportiveOrder.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CategoryController : Controller
+    public class CategoryController : Microsoft.AspNetCore.Mvc.Controller
     {
 
         private readonly ICategoryRepository _categoryRepository;

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SportiveOrder.Models;
 
 namespace SportiveOrder.Context
 {
@@ -31,19 +32,21 @@ namespace SportiveOrder.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Şirket Adres bire-bir ilişki 
-            modelBuilder.Entity<Company>().HasOne<Address>(c => c.CompanyAddress).WithOne(ad => ad.Company).HasForeignKey<Address>(ad => ad.CompanyId);
+            modelBuilder.Entity<Company>().HasOne<Address>(c => c.CompanyAddress).WithOne(ad => ad.Company).HasForeignKey<Address>(ad => ad.CompanyId).OnDelete(DeleteBehavior.Cascade);
             // Kullanıcı Şirket bire-bir ilişki
-            modelBuilder.Entity<AppUser>().HasOne<Company>(u => u.UserCompany).WithOne(c => c.User).HasForeignKey<Company>(c => c.UserId);
+            modelBuilder.Entity<AppUser>().HasOne<Company>(u => u.UserCompany).WithOne(c => c.User).HasForeignKey<Company>(c => c.UserId).OnDelete(DeleteBehavior.Cascade);
             // Kategori Ürün bire -çok ilişki
-            modelBuilder.Entity<Product>().HasOne<Category>(p => p.Category).WithMany(c => c.Products).HasForeignKey(c => c.CategoryId);
+            modelBuilder.Entity<Product>().HasOne<Category>(p => p.Category).WithMany(c => c.Products).HasForeignKey(c => c.CategoryId).OnDelete(DeleteBehavior.Cascade);
             // Kullanıcı Sipariş bir-Çok ilişki
-            modelBuilder.Entity<Order>().HasOne<AppUser>(o => o.User).WithMany(u => u.Orders).HasForeignKey(u => u.UserId);
+            modelBuilder.Entity<Order>().HasOne<AppUser>(o => o.User).WithMany(u => u.Orders).HasForeignKey(u => u.UserId).OnDelete(DeleteBehavior.Cascade);
             // Sipariş Ürün çoka-çok ilişki
             modelBuilder.Entity<OrderItems>().HasKey(oi => new { oi.OrderId, oi.ProductId });
-            modelBuilder.Entity<OrderItems>().HasOne<Product>(oi => oi.Product).WithMany(p => p.OrderItems).HasForeignKey(oi => oi.ProductId);
-            modelBuilder.Entity<OrderItems>().HasOne<Order>(oi => oi.Order).WithMany(o => o.OrderItems).HasForeignKey(oi => oi.OrderId);
+            modelBuilder.Entity<OrderItems>().HasOne<Product>(oi => oi.Product).WithMany(p => p.OrderItems).HasForeignKey(oi => oi.ProductId).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<OrderItems>().HasOne<Order>(oi => oi.Order).WithMany(o => o.OrderItems).HasForeignKey(oi => oi.OrderId).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<OrderItems>().HasIndex(I => new { I.OrderId, I.ProductId }).IsUnique();
             base.OnModelCreating(modelBuilder);
+
+            
         }
 
         public DbSet<Product> Product { get; set; }
@@ -52,5 +55,7 @@ namespace SportiveOrder.Context
         public DbSet<Address> Address { get; set; }
         public DbSet<Category> Category { get; set; }
         public DbSet<OrderItems> OrderItems { get; set; }
+        public DbSet<SportiveOrder.Models.ChangePassword> ChangePassword { get; set; }
+        public DbSet<SportiveOrder.Models.CRUDUser> CRUDUser { get; set; }
     }
 }

@@ -8,5 +8,6 @@ namespace SportiveOrder.Interfaces
 {
     public interface IAddressRepository : IGenericRepositories<Address>
     {
+        Address GetAdress(int companyId);
     }
 }

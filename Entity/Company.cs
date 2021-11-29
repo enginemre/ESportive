@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace SportiveOrder.Entity
 {
+    
     public class Company
     {
         [Key]
@@ -22,6 +23,7 @@ namespace SportiveOrder.Entity
         public AppUser User { get; set; }
 
         public Address CompanyAddress { get; set; }
+        
 
 
     }
