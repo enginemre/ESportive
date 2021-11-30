@@ -8,5 +8,8 @@ namespace SportiveOrder.Interfaces
 {
     public interface IOrderRepository : IGenericRepositories<Order>
     {
+        List<Order> GetUserOrders(string userId);
+        void AddOrder(Order order);
+        void UpdateOrder(Order order);
     }
 }

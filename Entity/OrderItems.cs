@@ -10,7 +10,8 @@ namespace SportiveOrder.Entity
     public class OrderItems
     {
         [Key]
-        public int OrderItemsId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
         public string OrderId { get; set; }
         public int ProductId { get; set; }
         [Column(TypeName = "int")]

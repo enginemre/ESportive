@@ -32,11 +32,17 @@ namespace SportiveOrder
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            // http ye sepet reposundan ulaþýlmasý saðlanýyor.
+            services.AddHttpContextAccessor();
             // Identity için razor pages ekleniyor
             services.AddRazorPages();
             services.AddDbContext<SportiveOrderContext>(options =>
                              options.UseSqlServer(
                                  Configuration.GetConnectionString("SportiveOrderContextConnection")));
+            // Sepet için session ekleniyor
+            services.AddSession();
+
             // Identity konfigrasyonlarý yapýlýyor.
             services.AddIdentity<AppUser, IdentityRole>(options =>
             {
@@ -87,7 +93,8 @@ namespace SportiveOrder
             app.UseStaticFiles();
             IdentityInitiliaze.CreateAdmin(userManager, roleManager);
             app.UseRouting();
-
+            app.UseSession();
+            app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseAuthorization();
 

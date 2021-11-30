@@ -10,8 +10,8 @@ using SportiveOrder.Context;
 namespace SportiveOrder.Migrations
 {
     [DbContext(typeof(SportiveOrderContext))]
-    [Migration("20211123053720_Initiliaze")]
-    partial class Initiliaze
+    [Migration("20211130181205_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -99,12 +99,10 @@ namespace SportiveOrder.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -141,12 +139,10 @@ namespace SportiveOrder.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -300,11 +296,10 @@ namespace SportiveOrder.Migrations
             modelBuilder.Entity("SportiveOrder.Entity.Order", b =>
                 {
                     b.Property<string>("OrderId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatingAt")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
@@ -325,13 +320,15 @@ namespace SportiveOrder.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("OrderItemsId")
-                        .HasColumnType("int");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("OrderId", "ProductId");
+                    b.HasKey("OrderId", "ProductId", "Id");
 
                     b.HasIndex("ProductId");
 
@@ -400,6 +397,31 @@ namespace SportiveOrder.Migrations
                     b.ToTable("Product");
                 });
 
+            modelBuilder.Entity("SportiveOrder.Models.CRUDUser", b =>
+                {
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("CRUDUser");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -466,7 +488,8 @@ namespace SportiveOrder.Migrations
                 {
                     b.HasOne("SportiveOrder.Areas.Identity.Data.AppUser", "User")
                         .WithOne("UserCompany")
-                        .HasForeignKey("SportiveOrder.Entity.Company", "UserId");
+                        .HasForeignKey("SportiveOrder.Entity.Company", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("User");
                 });
@@ -475,7 +498,8 @@ namespace SportiveOrder.Migrations
                 {
                     b.HasOne("SportiveOrder.Areas.Identity.Data.AppUser", "User")
                         .WithMany("Orders")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("User");
                 });
@@ -508,6 +532,17 @@ namespace SportiveOrder.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("SportiveOrder.Models.CRUDUser", b =>
+                {
+                    b.HasOne("SportiveOrder.Entity.Company", "UserCompany")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserCompany");
                 });
 
             modelBuilder.Entity("SportiveOrder.Areas.Identity.Data.AppUser", b =>

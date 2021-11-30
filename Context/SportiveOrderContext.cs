@@ -25,7 +25,7 @@ namespace SportiveOrder.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=ENGIN;Database=SportiveOrder;Trusted_Connection=True;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlServer("Server=ENGIN;Database=SportiveeOrder;Trusted_Connection=True;MultipleActiveResultSets=true");
             base.OnConfiguring(optionsBuilder);
         }
 
@@ -40,7 +40,7 @@ namespace SportiveOrder.Context
             // Kullanıcı Sipariş bir-Çok ilişki
             modelBuilder.Entity<Order>().HasOne<AppUser>(o => o.User).WithMany(u => u.Orders).HasForeignKey(u => u.UserId).OnDelete(DeleteBehavior.Cascade);
             // Sipariş Ürün çoka-çok ilişki
-            modelBuilder.Entity<OrderItems>().HasKey(oi => new { oi.OrderId, oi.ProductId });
+            modelBuilder.Entity<OrderItems>().HasKey(oi => new { oi.OrderId, oi.ProductId, oi.Id });
             modelBuilder.Entity<OrderItems>().HasOne<Product>(oi => oi.Product).WithMany(p => p.OrderItems).HasForeignKey(oi => oi.ProductId).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<OrderItems>().HasOne<Order>(oi => oi.Order).WithMany(o => o.OrderItems).HasForeignKey(oi => oi.OrderId).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<OrderItems>().HasIndex(I => new { I.OrderId, I.ProductId }).IsUnique();

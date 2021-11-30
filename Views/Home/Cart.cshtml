@@ -1,0 +1,65 @@
+﻿@model Cart;
+@{
+    ViewData["Title"] = "Sepet";
+    Layout = "_Layout";
+}
+
+@if (Model== null ||Model.products == null)
+{
+
+    <div>
+        Sepetiniz Boş
+    </div>
+}
+else
+{
+<form asp-action="CreateOrder" asp-controller="Home">
+    <div class="table-responsive cart_info">
+        <table class="table table-condensed">
+            <thead>
+                <tr class="cart_menu">
+                    <td class="image">Ürün</td>
+                    <td class="description"></td>
+                    <td class="price">Alış Fiyatı</td>
+                    <td class="quantity">Miktar</td>
+                    <td class="total">Toplam</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.products)
+                {
+                    <tr>
+                        <td class="cart_product">
+                            <a><img src="images/product1.jpg" alt=""></a>
+                        </td>
+                        <td class="cart_description">
+                            <h4><a href="">@item.product.ProductName</a></h4>
+                            <p>Web ID:@item.product.ProductId</p>
+                        </td>
+                        <td class="cart_price">
+                            <p>@item.product.PurchasePrice</p>
+                        </td>
+                        <td class="cart_quantity">
+                            <div class="cart_quantity_button">
+                                <a class="cart_quantity_up" href=""> + </a>
+                                <input class="cart_quantity_input" type="text" asp-for="@item.quantity" name="quantity" value="@item.quantity" autocomplete="off" size="2">
+                                <a class="cart_quantity_down" href=""> - </a>
+                            </div>
+                        </td>
+                        <td class="cart_total">
+                            <p class="cart_total_price">@item.product.PurchasePrice</p>
+                        </td>
+                        <td class="cart_delete">
+                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Sipariş Gönder" class="btn btn-primary" />
+    </div>
+</form>
+}

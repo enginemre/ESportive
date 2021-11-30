@@ -85,7 +85,7 @@ namespace SportiveOrder.Areas.Admin.Controller
         [HttpGet]
         public async Task<IActionResult> Edit(string UserId)
         {
-            var user =  _userManager.FindByIdAsync(UserId).Result;
+            var user = await _userManager.FindByIdAsync(UserId);
             var role = _userManager.GetRolesAsync(user).Result;
             var company = _companyRepository.GetEntity(user.CompanyId);
             var address = _addressRepository.GetAdress(company.CompanyId);
@@ -167,7 +167,7 @@ namespace SportiveOrder.Areas.Admin.Controller
         {
             if (ModelState.IsValid)
             {
-                var user = _userManager.FindByIdAsync(model.UserId).Result;
+                var user = await _userManager.FindByIdAsync(model.UserId);
                 if (user == null)
                 {
                     return View(model);

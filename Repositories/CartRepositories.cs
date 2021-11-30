@@ -2,6 +2,7 @@
 using SportiveOrder.CustomExtensions;
 using SportiveOrder.Entity;
 using SportiveOrder.Interfaces;
+using SportiveOrder.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,32 +18,38 @@ namespace SportiveOrder.Repositories
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public void AddCart(Product product)
+        public void AddCart(CartItem item)
         {
-            var comingList = _httpContextAccessor.HttpContext.Session.GetObject<List<Product>>("cart");
-
-            if (comingList == null)
+            var comingList = _httpContextAccessor.HttpContext.Session.GetObject<Cart>("cart");
+            
+            if (comingList == null || comingList.products == null)
             {
-                comingList = new List<Product>();
-                comingList.Add(product);
+                comingList = new Cart
+                {
+                    products = new List<CartItem>(),
+                    sum = 0
+                };
+                comingList.products.Add(item);
             }
             else
             {
-                comingList.Add(product);
+                comingList.sum += item.quantity;
+                comingList.products.Add(item);
             }
             _httpContextAccessor.HttpContext.Session.SetObject("cart", comingList);
+            
         }
 
-        public List<Product> GetCartProducts()
+        public Cart GetCartProducts()
         {
-            return _httpContextAccessor.HttpContext.Session.GetObject<List<Product>>("cart");
+            return _httpContextAccessor.HttpContext.Session.GetObject<Cart>("cart");
         }
 
-        public void RemoveCart(Product product)
+        public void RemoveCart(CartItem item)
         {
-            var comingList = _httpContextAccessor.HttpContext.Session.GetObject<List<Product>>("cart");
+            var comingList = _httpContextAccessor.HttpContext.Session.GetObject<Cart>("cart");
 
-            comingList.Remove(product);
+            comingList.products.Remove(item);
             _httpContextAccessor.HttpContext.Session.SetObject("cart", comingList);
         }
 

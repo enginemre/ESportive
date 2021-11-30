@@ -16,10 +16,14 @@
         else
         {
             <li class="nav-item">
-                <a id="manage" class="nav-link text-dark"  asp-action="Account"  asp-controller="Home" title="Manage">@UserManager.GetUserName(User)!</a>
+                <a id="manage" class="nav-link text-dark" asp-action="Account" asp-controller="Home" title="Manage">@UserManager.GetUserName(User)!</a>
             </li>
         }
 
+
+        <li class="nav-item">
+            <a class="nav-link text-dark" id="register" asp-action="Index" asp-controller="Order">Siparişlerim</a>
+        </li>
         <li class="nav-item">
             <a class="nav-link text-dark" id="register" asp-action="Cart" asp-controller="Home">Sepetim</a>
         </li>

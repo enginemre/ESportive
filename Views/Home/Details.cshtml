@@ -1,4 +1,4 @@
-﻿@model Product
+﻿@model CartItem
 
 @{
     Layout = "_Layout";
@@ -25,24 +25,28 @@
                     </div>
 
                     <div class="col-sm-7">
-                        <div class="product-information">
-                            <img src="images/product-details/new.jpg" class="newarrival" alt="" />
-                            <h2>@Model.ProductName/h2>
-                            <p>Web ID: @Model.ProductId/p>
-                            <span>
-                                <span>@Model.SalePrice ₺</span>
-                                <label>Miktar:</label>
-                                <input type="text" value="1" />
-                                <a class="btn btn-default add-to-cart" asp-action="AddCart" asp-controller="Home" asp-route-id="@Model.ProductId"><i class="fa fa-shopping-cart"></i>Sepete Ekle</a>
-                            </span>
-                            <p><b>Alış Fiyatı:</b> @Model.PurchasePrice/p>
-                            <p><b>Stok Kodu:</b> @Model.StockCode/p>
-                            <p><b>Stok:</b> @Model.Stock</p>
-                            <p><b>Barkod:</b>@Model.Barcode </p>
-                            <p><b>Beden:</b> @Model.Size</p>
-                            <p><b>Renk:</b> @Model.Color</p>
-                            <p><b>Ürün Grubu:</b> @Model.ProductGroup </p>
+                        <form asp-action="AddCart" asp-controller="Home" asp-route-id="@Model.product.ProductId">
+                            <div class="product-information">
+                                <img src="images/product-details/new.jpg" class="newarrival" alt="" />
+                                <h2>
+                                    @Model.product.ProductName/h2>
+                                <p>
+                                    Web ID: @Model.product.ProductId/p>
+                                    <span>
+                                        <span>@Model.product.SalePrice ₺</span>
+                                        <label>Miktar:</label>
+                                        <input asp-for="@Model.quantity" type="text" value="1" />
+                                        <button type="submit" class="btn btn-default add-to-cart" ><i class="fa fa-shopping-cart"></i>Sepete Ekle</button>
+                                    </span>
+                                <p><b>Alış Fiyatı:</b> @Model.product.PurchasePrice/p>
+                                <p><b>Stok Kodu:</b> @Model.product.StockCode/p>
+                                <p><b>Stok:</b> @Model.product.Stock</p>
+                                <p><b>Barkod:</b>@Model.product.Barcode </p>
+                                <p><b>Beden:</b> @Model.product.Size</p>
+                                <p><b>Renk:</b> @Model.product.Color</p>
+                                <p><b>Ürün Grubu:</b> @Model.product.ProductGroup </p>
                         </div>
+                        </form>
                     </div>
 
                 </div>
