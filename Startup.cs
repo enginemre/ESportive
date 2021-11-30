@@ -47,7 +47,7 @@ namespace SportiveOrder
                 options.SignIn.RequireConfirmedAccount = false;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
                 options.SignIn.RequireConfirmedEmail = false;
-            }).AddEntityFrameworkStores<SportiveOrderContext>();
+            }).AddEntityFrameworkStores<SportiveOrderContext>().AddTokenProvider<DataProtectorTokenProvider<AppUser>>(TokenOptions.DefaultProvider);
             // Authorize için yönlendirme ayarlarý yapýlýyor.
             services.ConfigureApplicationCookie(opt =>
             {

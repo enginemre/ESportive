@@ -158,34 +158,34 @@ namespace SportiveOrder.Areas.Admin.Controller
             return RedirectToAction("Index", "User", new { area = "Admin" });
             
         }
-        [HttpGet]
-        public IActionResult ChangePassword()
+        public IActionResult ResetPassword(string UserId)
         {
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> ChangePassword(ChangePassword model)
+        public async Task<IActionResult> ResetPassword(ResetPassword model)
         {
             if (ModelState.IsValid)
             {
-                var user = _userManager.GetUserAsync(User).Result;
-                if(user == null)
+                var user = _userManager.FindByIdAsync(model.UserId).Result;
+                if (user == null)
                 {
-                    return RedirectToAction("Login", "Account", new { area = "Identity" });
+                    return View(model);
                 }
-                var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
-                if (!result.Succeeded)
+                string resetToken = _userManager.GeneratePasswordResetTokenAsync(user).Result;
+                var result = _userManager.ResetPasswordAsync(user, resetToken, model.NewPassword).Result;
+                if (result.Succeeded)
                 {
-                    foreach (var item in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, item.Description);
-                    }
-                    return View();
+                    return RedirectToAction("Index", "User", new { area = "Admin" });
                 }
-                await _signInManager.RefreshSignInAsync(user);
-                return RedirectToAction("Index", "User", new { area = "Admin" });
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+                return View(model);
             }
             return View(model);
+
         }
     }
 }

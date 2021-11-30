@@ -7,13 +7,9 @@ using System.Threading.Tasks;
 
 namespace SportiveOrder.Models
 {   
-    [Keyless]
-    public class ChangePassword
+    public class ResetPassword
     {
-        [Required]
-        [DataType(DataType.Password)]
-        [Display(Name ="Mevcut Şifre")]
-        public string CurrentPassword { get; set; }
+        public string UserId { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

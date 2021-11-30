@@ -33,6 +33,7 @@ namespace SportiveOrder.Areas.Identity
                 var resultRoleAdmin = roleManager.CreateAsync(role).Result;
                 var resultRoleMember = roleManager.CreateAsync(roleMember).Result;
                 var reslut2 = userManager.AddToRoleAsync(appUser, "Admin").Result;
+                
             }
         }
     }
