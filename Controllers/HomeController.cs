@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using SportiveOrder.Areas.Identity.Data;
 using SportiveOrder.Entity;
@@ -23,8 +24,10 @@ namespace SportiveOrder.Controllers
         private readonly ICartRepository _cartRepository;
         private readonly IOrderItemsRepository _orderItemRepository;
         private readonly IOrderRepository _orderRepository;
+        private readonly IStringLocalizer<HomeController> _stringLocalizer;
 
-        public HomeController(ILogger<HomeController> logger, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, IProductRepository productRepository, ICartRepository cartRepository,IOrderRepository orderRepository, IOrderItemsRepository orderItemsRepository)
+
+        public HomeController(IStringLocalizer<HomeController> stringLocalizer, ILogger<HomeController> logger, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, IProductRepository productRepository, ICartRepository cartRepository,IOrderRepository orderRepository, IOrderItemsRepository orderItemsRepository)
         {
             _logger = logger;
             _signInManager = signInManager;
@@ -33,6 +36,7 @@ namespace SportiveOrder.Controllers
             _productRepository = productRepository;
             _orderRepository = orderRepository;
             _orderItemRepository = orderItemsRepository;
+            _stringLocalizer = stringLocalizer;
         }
 
         public IActionResult Index(int? category_id)
@@ -73,11 +77,13 @@ namespace SportiveOrder.Controllers
             var product = _productRepository.GetEntity(id);
             var cartItem = new CartItem { product = product, quantity = quantity };
             _cartRepository.AddCart(cartItem);
-            TempData["Msg"] = "Ürün Başarıyla Eklendi";
+            TempData["Msg"] = "Selam";
             return RedirectToAction("Index");
         }
 
-        
+
+
+
         [HttpPost]
         public async  Task<IActionResult> CreateOrder(Cart cart)
         {
@@ -107,12 +113,14 @@ namespace SportiveOrder.Controllers
             order.OrderItems = orderItemList;
             _orderRepository.UpdateOrder(order);
 
-            return RedirectToAction("Index", "Order");
+            return RedirectToAction("Index", "Order", new { area = "" });
         }
 
-        public IActionResult RemoveCart()
+        public IActionResult RemoveCart(int id)
         {
-            return RedirectToAction("Details");
+            _cartRepository.RemoveCart(id);
+
+            return RedirectToAction("Cart","Home");
         }
     }
 }

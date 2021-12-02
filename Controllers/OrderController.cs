@@ -17,14 +17,16 @@ namespace SportiveOrder.Controllers
         private readonly ICartRepository _cartRepository;
         private readonly IOrderItemsRepository _orderItemRepository;
         private readonly IOrderRepository _orderRepository;
+        private readonly IProductRepository _productRepository;
 
-        public OrderController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, ICartRepository cartRepository, IOrderRepository orderRepository, IOrderItemsRepository orderItemsRepository)
+        public OrderController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, ICartRepository cartRepository, IOrderRepository orderRepository, IOrderItemsRepository orderItemsRepository,IProductRepository product)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _cartRepository = cartRepository;
             _orderRepository = orderRepository;
             _orderItemRepository = orderItemsRepository;
+            _productRepository = product;
         }
         public async Task<IActionResult> Index()
         {
@@ -39,6 +41,16 @@ namespace SportiveOrder.Controllers
                 item.UserId = user.Id;
             }
             return View(orderIds);
+        }
+
+        public IActionResult Details(string orderId)
+        {
+            List<OrderItems> list =_orderItemRepository.GetOrderProducts(orderId);
+            foreach (var item in list)
+            {
+                item.Product = _productRepository.GetEntity(item.ProductId);
+            }
+            return View(list);
         }
     }
 }

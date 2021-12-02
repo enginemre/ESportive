@@ -3,20 +3,68 @@
 @{
     Layout = "_Layout";
 }
-<div class="container">
+
     <div class="row p-4">
-        <div class="col-sm-3 ">
-            <div class="left-sidebar">
-                <h2>Kategoriler</h2>
-                <div class="panel-group category-products" id="accordian">
+        <aside class="col-sm-3 ">
                     @await Component.InvokeAsync("Category")
-
-                </div>
-
-            </div>
-        </div>
+        </aside>
         <div class="col-sm-9 padding-right">
-            <div class="product-details">
+            <form asp-action="AddCart" asp-controller="Home" asp-route-id="@Model.product.ProductId">
+                <div class="card">
+                    <div class="row no-gutters">
+                        <aside class="col-md-6">
+                            <article class="gallery-wrap">
+                                <div class="img-big-wrap">
+                                    <img src="~/images/product1.jpg" />
+                                </div> <!-- img-big-wrap.// -->
+                            </article> <!-- gallery-wrap .end// -->
+                        </aside>
+                        <main class="col-md-6 border-left">
+                            <article class="content-body">
+
+                                <h2 class="title">@Model.product.ProductName</h2>
+
+
+                                <div class="mb-3 my-3">
+                                    <var class="price h4">@Model.product.PurchasePrice ₺</var>
+
+                                </div>
+
+                                <dl class="row">
+                                    <dt class="col-sm-4">@Localizer["product_id"]</dt>
+                                    <dd class="col-sm-8">@Model.product.ProductId</dd>
+                                    <dt class="col-sm-4">@Localizer["stock_code"]</dt>
+                                    <dd class="col-sm-8">@Model.product.StockCode</dd>
+                                    <dt class="col-sm-4">@Localizer["stock"]</dt>
+                                    <dd class="col-sm-8">@Model.product.Stock</dd>
+                                    <dt class="col-sm-4">@Localizer["purchase_price"]</dt>
+                                    <dd class="col-sm-8">@Model.product.PurchasePrice</dd>
+                                    <dt class="col-sm-4">@Localizer["barcode"]</dt>
+                                    <dd class="col-sm-8">@Model.product.Barcode</dd>
+                                    <dt class="col-sm-4">@Localizer["size"]</dt>
+                                    <dd class="col-sm-8">@Model.product.Size</dd>
+                                    <dt class="col-sm-4">@Localizer["color"]</dt>
+                                    <dd class="col-sm-8">@Model.product.Color</dd>
+                                    <dt class="col-sm-4">@Localizer["product_group"]</dt>
+                                    <dd class="col-sm-8">@Model.product.ProductGroup</dd>
+
+                                </dl>
+
+                                <hr>
+                                <div class="row">
+                                    <div class="form-group col-md flex-grow-0">
+                                        <label>@Localizer["quantity"]</label>
+                                        <div>
+                                            <input min="1" type="number" asp-for="@Model.quantity" class="form-control" value="@Model.quantity">
+                                        </div>
+                                    </div> <!-- col.// -->
+                                </div> <!-- row.// -->
+                                <button asp-action="AddCart" asp-controller="Home" asp-route-id="@Model.product.ProductId" asp-route-quantity="@Model.quantity" class="btn  btn-outline-primary"> <span class="text">@Localizer["add_cart"]</span> <i class="fas fa-shopping-cart"></i>  </button>
+                            </article> <!-- product-info-aside .// -->
+                        </main> <!-- col.// -->
+                    </div> <!-- row.// -->
+                </div> <!-- card.// -->
+                @*<div class="product-details">
                 <div class="row">
                     <div class="col-sm-5">
                         <div class="view-product">
@@ -30,27 +78,28 @@
                                 <img src="images/product-details/new.jpg" class="newarrival" alt="" />
                                 <h2>
                                     @Model.product.ProductName/h2>
-                                <p>
-                                    Web ID: @Model.product.ProductId/p>
-                                    <span>
-                                        <span>@Model.product.SalePrice ₺</span>
-                                        <label>Miktar:</label>
-                                        <input asp-for="@Model.quantity" type="text" value="1" />
-                                        <button type="submit" class="btn btn-default add-to-cart" ><i class="fa fa-shopping-cart"></i>Sepete Ekle</button>
-                                    </span>
-                                <p><b>Alış Fiyatı:</b> @Model.product.PurchasePrice/p>
-                                <p><b>Stok Kodu:</b> @Model.product.StockCode/p>
-                                <p><b>Stok:</b> @Model.product.Stock</p>
-                                <p><b>Barkod:</b>@Model.product.Barcode </p>
-                                <p><b>Beden:</b> @Model.product.Size</p>
-                                <p><b>Renk:</b> @Model.product.Color</p>
-                                <p><b>Ürün Grubu:</b> @Model.product.ProductGroup </p>
-                        </div>
+                                    <p>
+                                        Web ID: @Model.product.ProductId/p>
+                                        <span>
+                                            <span>@Model.product.SalePrice ₺</span>
+                                            <label>Miktar:</label>
+                                            <input asp-for="@Model.quantity" type="text" value="1" />
+                                            <button type="submit" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Sepete Ekle</button>
+                                        </span>
+                                    <p><b>Alış Fiyatı:</b> @Model.product.PurchasePrice/p>
+                                    <p><b>Stok Kodu:</b> @Model.product.StockCode/p>
+                                    <p><b>Stok:</b> @Model.product.Stock</p>
+                                    <p><b>Barkod:</b>@Model.product.Barcode </p>
+                                    <p><b>Beden:</b> @Model.product.Size</p>
+                                    <p><b>Renk:</b> @Model.product.Color</p>
+                                    <p><b>Ürün Grubu:</b> @Model.product.ProductGroup </p>
+                            </div>
                         </form>
                     </div>
 
                 </div>
-            </div>
+            </div>*@
+                </form>
         </div>
     </div>
-</div>
+  

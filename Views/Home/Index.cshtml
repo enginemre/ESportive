@@ -1,12 +1,12 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Ana Sayfa";
 }
 
 
 @if (TempData["Msg"] != null)
 {
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>Sepete Eklendi!</strong> @TempData["Msg"].ToString()
+    <div class="alert alert-success alert-dismissible fade show m-4" role="alert">
+        <strong>@Localizer["added_cart"]</strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -15,28 +15,17 @@
 
 
 <section>
-    <div class="container m-4">
+    <div class="container mt-3">
         <div class="row">
-            <div class="col-sm-3">
-                <div class="left-sidebar">
-                    <h2>Kategoriler</h2>
-                    <div class="panel-group category-products" id="accordian">
-                        <!--category-productsr-->
-                        @await Component.InvokeAsync("Category")
+            <aside class="col-sm-3">
+                @await Component.InvokeAsync("Category")
 
-                    </div><!--/category-products-->
+            </aside>
+            <div class="col-sm-9">
 
-                </div>
-            </div>
+                @await Component.InvokeAsync("Product", new { category_id = ViewBag.category_id });
 
-            <div class="col-sm-9 padding-right">
-                <div class="features_items">
-                    <h2 class="title text-center">Ürünler</h2>
-                    <div class="row">
-                        @await Component.InvokeAsync("Product", new { category_id = ViewBag.category_id });
-                    </div>
 
-                </div>
 
             </div>
         </div>

@@ -45,11 +45,18 @@ namespace SportiveOrder.Repositories
             return _httpContextAccessor.HttpContext.Session.GetObject<Cart>("cart");
         }
 
-        public void RemoveCart(CartItem item)
+        public void RemoveCart(int id)
         {
             var comingList = _httpContextAccessor.HttpContext.Session.GetObject<Cart>("cart");
-
-            comingList.products.Remove(item);
+            foreach (var item in comingList.products)
+            {
+                if(item.product.ProductId == id)
+                {
+                    comingList.products.Remove(item);
+                    break;
+                }
+            }
+            
             _httpContextAccessor.HttpContext.Session.SetObject("cart", comingList);
         }
 

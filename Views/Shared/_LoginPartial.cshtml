@@ -4,44 +4,29 @@
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 
-<ul class="navbar-nav">
-    @if (SignInManager.IsSignedIn(User))
-    {
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="dropdown-menu dropdown-menu-right">
         @if (User.IsInRole("Admin"))
         {
-            <li class="nav-item">
-                <a id="manage" class="nav-link text-dark" asp-area="Admin" asp-action="Index" title="Manage">@UserManager.GetUserName(User)!</a>
-            </li>
+
+            <a class="dropdown-item" asp-area="Admin" asp-action="Index">@UserManager.GetUserName(User)</a>
         }
         else
         {
-            <li class="nav-item">
-                <a id="manage" class="nav-link text-dark" asp-action="Account" asp-controller="Home" title="Manage">@UserManager.GetUserName(User)!</a>
-            </li>
+            <a class="dropdown-item" asp-action="Account" asp-controller="Home">@UserManager.GetUserName(User)</a>
+            <a class="dropdown-item" asp-action="Index" asp-controller="Order">@Localizer["orders"]</a>
+            <a class="dropdown-item" asp-action="Cart" asp-controller="Home">@Localizer["cart"]</a>
+
         }
-
-
-        <li class="nav-item">
-            <a class="nav-link text-dark" id="register" asp-action="Index" asp-controller="Order">Siparişlerim</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" id="register" asp-action="Cart" asp-controller="Home">Sepetim</a>
-        </li>
-        <li class="nav-item">
-            <form id="logoutForm" class="form-inline" asp-controller="Home" asp-action="Logout">
-                <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Çıkış</button>
-            </form>
-        </li>
-
-    }
-    else
-    {
-
-        <li class="nav-item">
-            <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Kayıt Ol</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Giriş Yap</a>
-        </li>
-    }
-</ul>
+        <hr class="dropdown-divider">
+        <a class="dropdown-item" asp-controller="Home" asp-action="Logout">@Localizer["logout"]</a>
+    </div>
+}
+else
+{
+<div class="dropdown-menu dropdown-menu-right">
+    <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">@Localizer["login"]</a>
+</div>
+}

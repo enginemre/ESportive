@@ -1,0 +1,44 @@
+﻿@model List<OrderItems>
+
+
+
+<table class="table table-condensed">
+    <thead>
+        <tr class="cart_menu">
+            <td class="image">Ürün</td>
+            <td class="description"></td>
+            <td class="price">Alış Fiyatı</td>
+            <td class="quantity">Miktar</td>
+            <td class="total">Toplam</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="cart_product">
+                    <a><img src="images/product1.jpg" alt=""></a>
+                </td>
+                <td class="cart_description">
+                    <h4><a href="">@item.Product.ProductName</a></h4>
+                    <p>Web ID:@item.Product.ProductId</p>
+                </td>
+                <td class="cart_price">
+                    <p>@item.Product.PurchasePrice</p>
+                </td>
+                <td class="cart_quantity">
+                    <div class="cart_quantity_button">
+                        <a class="cart_quantity_input">@item.Quantity</a>
+                    </div>
+                </td>
+                <td class="cart_total">
+                    <p class="cart_total_price">@item.Product.PurchasePrice</p>
+                </td>
+                <td class="cart_delete">
+                    <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

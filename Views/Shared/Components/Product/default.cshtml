@@ -1,25 +1,47 @@
 ﻿@model List<Product>;
 
-@foreach (var item in Model)
-{
-    @if (Model.Count > 0)
-    {
-        <div class="col-sm-4">
-            <div class="product-image-wrapper">
-                <div class="single-products">
-                    <div class="productinfo text-center">
-                        <img src="~/images/product1.jpg" alt="Resim Yok" />
-                        <h2>@item.SalePrice ₺</h2>
-                        <p>@item.ProductName</p>
-                        <a class="btn btn-default add-to-cart" asp-action="Details" asp-controller="Home" asp-route-id="@item.ProductId"><i class="fa fa-shopping-cart"></i>Detay</a>
-                    </div>
-                </div>
-            </div>
+    <header class="border-bottom mb-4 pb-3">
+        <div class="form-inline">
+            <span class="mr-md-auto">@Model.Count <span> @Localizer["founded_item_count"]</span> </span>
+            <select class="mr-2 form-control">
+                <option>@Localizer["cheapest"]</option>
+                <option>@Localizer["expensive"]</option>
+            </select>
         </div>
-    }
-    else
+    </header>
+  
+
+     <div class="row">
+    @foreach (var item in Model)
     {
-        <div class="alert alert-warning text-center"> Hiçbir ürün  bulunamadı</div>
-    }
+
+
+        @if (Model.Count > 0)
+        {
+            <div class="col-md-4">
+                <figure class="card card-product-grid card-lg">
+                    <a asp-action="Details" asp-controller="Home" asp-route-id="@item.ProductId" class="img-wrap">
+                        <img src="~/images/product1.jpg" />
+                    </a>
+                    <figcaption class="info-wrap">
+                        <a asp-action="Details" asp-controller="Home" asp-route-id="@item.ProductId" class="title">@item.ProductName</a>
+                    </figcaption>
+                    <div class="bottom-wrap">
+                        <a asp-action="Details" asp-controller="Home" asp-route-id="@item.ProductId" class="btn  btn-primary float-right">@Localizer["details"]</a>
+                        <div class="price-wrap">
+                            <span class="price h5">@item.SalePrice ₺</span>
+                        </div> <!-- price-wrap.// -->
+    </div> <!-- bottom-wrap.// -->
+    </figure>
+    </div> <!-- col.// -->
 
 }
+else
+{
+    <div class="alert alert-danger" role="alert">
+        @Localizer["product_alert"]
+    </div>
+}
+
+}
+         </div>

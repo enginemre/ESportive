@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using SportiveOrder.Areas.Identity;
 using SportiveOrder.Areas.Identity.Data;
 using SportiveOrder.Areas.Identity.Pages;
+using Westwind.AspNetCore.LiveReload;
 using SportiveOrder.Context;
 using SportiveOrder.Interfaces;
 using SportiveOrder.Repositories;
@@ -16,6 +17,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using System.Reflection;
+using SportiveOrder.Models;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace SportiveOrder
 {
@@ -31,8 +38,11 @@ namespace SportiveOrder
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
-
+            services.AddLocalization(options =>
+            {
+                options.ResourcesPath = "Resources";
+            });
+            services.AddControllersWithViews().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization().AddRazorRuntimeCompilation();
             // http ye sepet reposundan ulaþýlmasý saðlanýyor.
             services.AddHttpContextAccessor();
             // Identity için razor pages ekleniyor
@@ -42,6 +52,17 @@ namespace SportiveOrder
                                  Configuration.GetConnectionString("SportiveOrderContextConnection")));
             // Sepet için session ekleniyor
             services.AddSession();
+            // Swagger ekleniyor
+            services.AddSwaggerDocument();
+            // Hot Reload
+            services.AddLiveReload(config =>
+            {
+                config.LiveReloadEnabled = true;
+                config.ClientFileExtensions = ".cshtml,.css,.js,.htm,.html,.ts,.razor,.custom";
+                config.ServerRefreshTimeout = 3000;
+                //config.FolderToMonitor = Path.GetFullname(Path.Combine(Env.ContentRootPath,"..")) ;
+            });
+
 
             // Identity konfigrasyonlarý yapýlýyor.
             services.AddIdentity<AppUser, IdentityRole>(options =>
@@ -75,8 +96,19 @@ namespace SportiveOrder
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
         {
+            var supportedCultures = new List<CultureInfo>
+            {
+                 new CultureInfo("tr-TR"),
+                 new CultureInfo("en-US"),
+            };
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures,
+                DefaultRequestCulture = new RequestCulture("tr-TR")
+            });
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -88,7 +120,8 @@ namespace SportiveOrder
                 app.UseHsts();
             }
 
-
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             IdentityInitiliaze.CreateAdmin(userManager, roleManager);
@@ -97,6 +130,8 @@ namespace SportiveOrder
             app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseLiveReload();
+
 
             app.UseEndpoints(endpoints =>
             {

@@ -18,9 +18,29 @@ namespace SportiveOrder.ViewComponents
         {
             if (category_id.HasValue)
             {
-                return View(_productRepository.GetProducts((int)category_id));
+                var list = _productRepository.GetProducts((int)category_id);
+                foreach (var item in list)
+                {
+                    if (item.ProductName != null && item.ProductName.Length > 20)
+                    {
+                        item.ProductName = item.ProductName.Substring(0, 20);
+                    }
+                }
+                return View(list);
             }
-            return View(_productRepository.GetEntities());
+            else
+            {
+                var list = _productRepository.GetEntities();
+                foreach (var item in list)
+                {
+                    if (item.ProductName != null && item.ProductName.Length > 20)
+                    {
+                        item.ProductName = item.ProductName.Substring(0, 20);
+                    }
+                }
+                return View(list);
+            }
+            
         }
     }
 }

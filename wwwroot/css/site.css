@@ -1,6 +1,20 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+
+
+.classname {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+}
+
+
+.fonts {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+}
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -27,7 +41,8 @@ a {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
 }
 @media (min-width: 768px) {
   html {
@@ -59,8 +74,9 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    font-family: 'Inter', sans-serif;
 }
 .footer {
   position: absolute;

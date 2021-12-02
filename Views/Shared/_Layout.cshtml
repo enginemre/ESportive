@@ -1,34 +1,87 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿
+
+@using Microsoft.AspNetCore.Identity
+@using SportiveOrder.Areas.Identity.Data
+
+@inject SignInManager<AppUser> SignInManager
+<!DOCTYPE html>
+<html lang="tr">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - SportiveOrder</title>
+    <title>@ViewData["Title"] - ESportive</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="~/css/font.css" rel="stylesheet" />
+    <link href="~/css/responsive.css" rel="stylesheet" />
+    <link href="~/css/ui.css" rel="stylesheet" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <header class="section-header">
+        <section class="header-main border-bottom">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SportiveOrder</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-sm-4 col-md-4 col-5">
+                        <a asp-action="Index" asp-controller="Home"><p style="font-size:25px;">ESprotive</p></a>
 
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">AnaSayfa</a>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
-                </div>
-            </div>
-        </nav>
+
+                    </div>
+                    <div class="col-lg-4 col-xl-5 col-sm-8 col-md-4 d-none d-md-block">
+                        <form action="#" class="search">
+                            <div class="input-group w-100">
+                                <input type="text" class="form-control" style="width:55%;" placeholder="@Localizer["search"]">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form> <!-- search-wrap .end// -->
+                    </div> <!-- col.// -->
+                    <div class="col-lg-5 col-xl-4 col-sm-8 col-md-4 col-7">
+                        <div class="d-flex justify-content-end">
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <a  asp-action="Cart" asp-controller="Home" class="widget-header mr-3">
+                                    <div class="icon">
+                                        <i class="icon-sm rounded-circle border fa fa-shopping-cart"></i>
+                                    </div>
+                                </a>
+                            }
+                            <div class="widget-header dropdown">
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle" data-offset="20,10">
+                                    <div class="icon icon-sm rounded-circle border ">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                    <span class="sr-only">Profile actions</span>
+                                </a>
+                                <partial name="_LoginPartial" />
+                            </div>  <!-- widget-header .// -->
+                        </div> <!-- widgets-wrap.// -->
+                    </div> <!-- col.// -->
+                </div> <!-- row.// -->
+            </div> <!-- container.// -->
+        </section> <!-- header-main .// -->
     </header>
-    <div class="container">
+    @*<header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ESportive</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
+                        <ul class="navbar-nav flex-grow-1">
+                        </ul>
+                        <partial name="_LoginPartial" />
+                    </div>
+                </div>
+            </nav>
+        </header>*@
+    <div class="container theme">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -42,6 +95,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/script.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

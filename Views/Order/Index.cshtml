@@ -26,9 +26,8 @@ else
                @foreach (var item in Model)
                {
                    <tr>
-                
                        <td class="cart_description">
-                           <h4><a href="">@item.OrderId</a></h4>
+                           <h4><a asp-action="Details" asp-controller="Order" asp-route-orderId="@item.OrderId">@item.OrderId</a></h4>
                            <p>User ID:@item.UserId</p>
                        </td>
                        <td class="cart_total">
