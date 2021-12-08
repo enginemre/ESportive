@@ -123,6 +123,9 @@
   <data name="added_cart" xml:space="preserve">
     <value>Sepete Eklendi !</value>
   </data>
+  <data name="address" xml:space="preserve">
+    <value>Adres</value>
+  </data>
   <data name="add_cart" xml:space="preserve">
     <value>Sepete Ekle</value>
   </data>
@@ -141,14 +144,74 @@
   <data name="category" xml:space="preserve">
     <value>Tüm Kategoriler</value>
   </data>
+  <data name="category_name" xml:space="preserve">
+    <value>Kategori İsmi</value>
+  </data>
   <data name="cheapest" xml:space="preserve">
     <value>Fiyata göre artan</value>
+  </data>
+  <data name="city" xml:space="preserve">
+    <value>Şehir</value>
   </data>
   <data name="color" xml:space="preserve">
     <value>Renk</value>
   </data>
+  <data name="company" xml:space="preserve">
+    <value>Şirket</value>
+  </data>
+  <data name="company_name" xml:space="preserve">
+    <value>Şirket İsmi</value>
+  </data>
+  <data name="confirm_password" xml:space="preserve">
+    <value>Şifre Tekrar</value>
+  </data>
+  <data name="continue_shopping" xml:space="preserve">
+    <value>Alışverişe devam et</value>
+  </data>
+  <data name="create_new" xml:space="preserve">
+    <value>Yeni Oluştur</value>
+  </data>
+  <data name="create_order" xml:space="preserve">
+    <value>Siparişi Tamamla</value>
+  </data>
+  <data name="create_product" xml:space="preserve">
+    <value>Ürün Oluştur</value>
+  </data>
+  <data name="create_user" xml:space="preserve">
+    <value>Kullanıcı Oluştur</value>
+  </data>
+  <data name="delete" xml:space="preserve">
+    <value>Sil</value>
+  </data>
   <data name="details" xml:space="preserve">
     <value>Detay</value>
+  </data>
+  <data name="edit" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
+  <data name="email" xml:space="preserve">
+    <value>E-Posta</value>
+  </data>
+  <data name="empty_cart" xml:space="preserve">
+    <value>Sepette hiç ürün yok</value>
+  </data>
+  <data name="empty_cart_link" xml:space="preserve">
+    <value>tıklayın</value>
+  </data>
+  <data name="empty_cart_message" xml:space="preserve">
+    <value>Alışverişe devam etemek istiyorsanız </value>
+  </data>
+  <data name="empty_order" xml:space="preserve">
+    <value>Siparişiniz bulunmamaktadır.</value>
+  </data>
+  <data name="empty_order_link" xml:space="preserve">
+    <value>tıklayın</value>
+  </data>
+  <data name="empty_order_message" xml:space="preserve">
+    <value>Sipariş vermek istiyorsanız</value>
+  </data>
+  <data name="error_message" xml:space="preserve">
+    <value>Aynı üründen sepette bulunmaktadır</value>
   </data>
   <data name="expensive" xml:space="preserve">
     <value>Fiyata göre azalan</value>
@@ -162,11 +225,38 @@
   <data name="logout" xml:space="preserve">
     <value>Çıkış</value>
   </data>
+  <data name="message_added_product" xml:space="preserve">
+    <value>Başarıyla Eklendi</value>
+  </data>
+  <data name="message_error_product" xml:space="preserve">
+    <value>Başarısız Eklenemedi</value>
+  </data>
+  <data name="message_same_product" xml:space="preserve">
+    <value>Aynı üründen sepette bulunmaktadır</value>
+  </data>
+  <data name="operations" xml:space="preserve">
+    <value>İşlemler</value>
+  </data>
   <data name="orders" xml:space="preserve">
     <value>Siparişlerim</value>
   </data>
+  <data name="password" xml:space="preserve">
+    <value>Şifre</value>
+  </data>
+  <data name="phone" xml:space="preserve">
+    <value>Telefon</value>
+  </data>
+  <data name="post_code" xml:space="preserve">
+    <value>Posta Kodu</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>Fiyat</value>
+  </data>
   <data name="price_range" xml:space="preserve">
     <value>Fiyat Aralığı</value>
+  </data>
+  <data name="products" xml:space="preserve">
+    <value>Ürünler</value>
   </data>
   <data name="product_alert" xml:space="preserve">
     <value>Bu kategoriye ait ürün bulunamadı</value>
@@ -177,11 +267,29 @@
   <data name="product_id" xml:space="preserve">
     <value>Ürün Id</value>
   </data>
+  <data name="product_name" xml:space="preserve">
+    <value>Ürün İsmi</value>
+  </data>
+  <data name="province" xml:space="preserve">
+    <value>İlçe</value>
+  </data>
   <data name="purchase_price" xml:space="preserve">
     <value>Alış Fiyatı</value>
   </data>
   <data name="quantity" xml:space="preserve">
     <value>Miktar</value>
+  </data>
+  <data name="remove" xml:space="preserve">
+    <value>Sepetten Kaldır</value>
+  </data>
+  <data name="reset_password" xml:space="preserve">
+    <value>Şifre Sıfırla</value>
+  </data>
+  <data name="role_name" xml:space="preserve">
+    <value>Rol</value>
+  </data>
+  <data name="sale_price" xml:space="preserve">
+    <value>Satış Fiyatı</value>
   </data>
   <data name="save" xml:space="preserve">
     <value>Kaydet</value>
@@ -192,7 +300,40 @@
   <data name="size" xml:space="preserve">
     <value>Beden</value>
   </data>
+  <data name="sort" xml:space="preserve">
+    <value>Sırala</value>
+  </data>
+  <data name="stock" xml:space="preserve">
+    <value>Stok</value>
+  </data>
   <data name="stock_code" xml:space="preserve">
     <value>Stok Kodu</value>
+  </data>
+  <data name="title_cart" xml:space="preserve">
+    <value>Sepet</value>
+  </data>
+  <data name="title_home" xml:space="preserve">
+    <value>Ana Sayfa</value>
+  </data>
+  <data name="title_login" xml:space="preserve">
+    <value>Giriş Yap</value>
+  </data>
+  <data name="title_order" xml:space="preserve">
+    <value>Siparişler</value>
+  </data>
+  <data name="title_order_details" xml:space="preserve">
+    <value>Sipariş Detay</value>
+  </data>
+  <data name="title_product_details" xml:space="preserve">
+    <value>Ürün Detay</value>
+  </data>
+  <data name="total" xml:space="preserve">
+    <value>Toplam</value>
+  </data>
+  <data name="user" xml:space="preserve">
+    <value>Kullanıcı</value>
+  </data>
+  <data name="username" xml:space="preserve">
+    <value>Kullanıcı Adı</value>
   </data>
 </root>

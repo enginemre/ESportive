@@ -55,6 +55,5 @@ namespace SportiveOrder.Context
         public DbSet<Address> Address { get; set; }
         public DbSet<Category> Category { get; set; }
         public DbSet<OrderItems> OrderItems { get; set; }
-        public DbSet<SportiveOrder.Models.CRUDUser> CRUDUser { get; set; }
     }
 }

@@ -52,6 +52,7 @@ namespace SportiveOrder.Areas.Admin.Controllers
                 Barcode = product.Barcode,
                 Size = product.Size,
                 SalePrice = product.SalePrice,
+                PurchasePrice =product.PurchasePrice,
                 Stock = product.Stock,
                 CategoryId = product.CategoryId,
                 KDV = product.KDV,

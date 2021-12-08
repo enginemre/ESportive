@@ -11,5 +11,6 @@ namespace SportiveOrder.Models
         public List<CartItem> products { get; set; }
 
         public decimal sum { get; set; }
+
     }
 }

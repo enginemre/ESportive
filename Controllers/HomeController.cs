@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using SportiveOrder.Areas.Identity.Data;
@@ -11,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SportiveOrder.Controllers
@@ -24,7 +27,7 @@ namespace SportiveOrder.Controllers
         private readonly ICartRepository _cartRepository;
         private readonly IOrderItemsRepository _orderItemRepository;
         private readonly IOrderRepository _orderRepository;
-        private readonly IStringLocalizer<HomeController> _stringLocalizer;
+        private readonly IStringLocalizer<HomeController> _localizer;
 
 
         public HomeController(IStringLocalizer<HomeController> stringLocalizer, ILogger<HomeController> logger, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, IProductRepository productRepository, ICartRepository cartRepository,IOrderRepository orderRepository, IOrderItemsRepository orderItemsRepository)
@@ -36,20 +39,24 @@ namespace SportiveOrder.Controllers
             _productRepository = productRepository;
             _orderRepository = orderRepository;
             _orderItemRepository = orderItemsRepository;
-            _stringLocalizer = stringLocalizer;
+            _localizer = stringLocalizer;
         }
-
-        public IActionResult Index(int? category_id)
+        [HttpGet]
+        public IActionResult Index(int? category_id,string state,string searchString)
         {
+            ViewBag.search = searchString;
             ViewBag.category_id = category_id;
+            ViewBag.price_sort = state;
             return View(_productRepository.GetEntities());
+
         }
+        [Authorize]
         public IActionResult Details(int id)
         {
-            var product = _productRepository.GetEntity(id);
-            var quantity = 1;
-            var cartItem = new CartItem { product = product, quantity = quantity };
-            return View(cartItem);
+                var product = _productRepository.GetEntity(id);
+                var quantity = 1;
+                var cartItem = new CartItem { product = product, quantity = quantity };
+                return View(cartItem);
         }
 
 
@@ -58,17 +65,26 @@ namespace SportiveOrder.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        [HttpPost]
+        public IActionResult SetLanguage(string culture, string returnUrl)
+        {
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new Microsoft.AspNetCore.Http.CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+                );
+            return LocalRedirect(returnUrl);
+        }
 
         public async  Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Login","Account",new { area = "Identity"});
         }
         
         public IActionResult Cart(Cart carts)
         {
             var cart = _cartRepository.GetCartProducts();
-              
             return View(cart);
         }
 
@@ -76,9 +92,16 @@ namespace SportiveOrder.Controllers
         {
             var product = _productRepository.GetEntity(id);
             var cartItem = new CartItem { product = product, quantity = quantity };
-            _cartRepository.AddCart(cartItem);
-            TempData["Msg"] = "Selam";
-            return RedirectToAction("Index");
+            int message =  _cartRepository.AddCart(cartItem);
+            if(message == 0)
+            {
+                TempData["MsgCode"] = "0";
+            }
+            else
+            {
+                TempData["MsgCode"] = "1";
+            }
+            return RedirectToAction("Index","Home",new { area = "" });
         }
 
 
@@ -112,9 +135,12 @@ namespace SportiveOrder.Controllers
             }
             order.OrderItems = orderItemList;
             _orderRepository.UpdateOrder(order);
+            _cartRepository.ClearCart();
 
             return RedirectToAction("Index", "Order", new { area = "" });
         }
+
+
 
         public IActionResult RemoveCart(int id)
         {

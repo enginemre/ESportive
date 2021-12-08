@@ -9,8 +9,9 @@ namespace SportiveOrder.Interfaces
 {
     public interface ICartRepository
     {
-        void AddCart(CartItem cartItem);
+        int AddCart(CartItem cartItem);
         void RemoveCart(int id);
         Cart GetCartProducts();
+        public void ClearCart();
     }
 }

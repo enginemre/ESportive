@@ -1,14 +1,18 @@
 ﻿@model Cart;
 @{
-    ViewData["Title"] = "Sepet";
+    ViewData["Title"] = Localizer["title_cart"];
     Layout = "_Layout";
 }
 
-@if (Model == null || Model.products == null || Model.products.Count ==0)
+@if (Model == null || Model.products == null || Model.products.Count == 0)
 {
 
-    <div>
-        Sepetiniz Boş
+    <div class="d-flex justify-content-center mt-5">
+        <h4 class="mb-3">@Localizer["empty_cart"]</h4> <br />
+
+    </div>
+    <div class="d-flex justify-content-center">
+        <p class="text-muted">@Localizer["empty_cart_message"]</p> <a asp-action="Index" asp-controller="Home" asp-area="">&nbsp; @Localizer["empty_cart_link"]</a>
     </div>
 }
 else
@@ -19,16 +23,16 @@ else
             <table class="table table-borderless table-shopping-cart">
                 <thead class="text-muted">
                     <tr class="small text-uppercase">
-                        <th scope="col">Product</th>
-                        <th scope="col" width="120">Quantity</th>
-                        <th scope="col" width="120">Price</th>
+                        <th scope="col">@Localizer["products"]</th>
+                        <th scope="col" width="120">@Localizer["quantity"]</th>
+                        <th scope="col" width="120">@Localizer["price"]</th>
                         <th scope="col" class="text-right" width="200"> </th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model.products)
                     {
-                        var sum = item.quantity * Convert.ToDouble(@item.product.PurchasePrice);
+                        var sum = item.quantity * Convert.ToDouble(@item.product.SalePrice);
                         <tr>
                             <td>
                                 <figure class="itemside">
@@ -42,26 +46,29 @@ else
                                 </figure>
                             </td>
                             <td>
-                                <input min="1" type="number" asp-for="@item.quantity" class="form-control" value="@item.quantity">
+                                <input oninput="myFunction(this.val)" min="1" type="number" asp-for="@item.quantity" class="form-control" value="@item.quantity">
                             </td>
                             <td>
                                 <div class="price-wrap">
                                     <var class="price">@sum ₺</var>
-                                    <small class="text-muted"> @item.product.PurchasePrice ₺ </small>
+                                    <small class="text-muted"> @item.product.SalePrice ₺ </small>
                                 </div> <!-- price-wrap .// -->
                             </td>
                             <td class="text-right">
-                                <a asp-action="RemoveCart" asp-controller="Home" asp-route-id="@item.product.ProductId" class="btn btn-danger btn-round"> Remove</a>
+                                <a asp-action="RemoveCart" asp-controller="Home" asp-route-id="@item.product.ProductId" class="btn btn-danger btn-round"> @Localizer["remove"]</a>
                             </td>
                         </tr>
-                       
+
                     }
                 </tbody>
             </table>
 
             <div class="card-body border-top">
-                <button class="btn btn-primary float-md-right" type="submit"> Sipariş Oluştur <i class="fa fa-chevron-right"></i> </button>
-                <a href="#" class="btn btn-light"> <i class="fa fa-chevron-left"></i> Continue shopping </a>
+                <button class="btn btn-primary float-md-right" type="submit">@Localizer["create_order"] </button>
+
+
+                <var class="price price-wrap float-right mx-lg-5 my-2">@Model.sum ₺</var>
+                <a asp-action="Index" asp-controller="Home" class="btn btn-light float-left"> <i class="fa fa-chevron-left"></i>@Localizer["continue_shopping"] </a>
             </div>
         </div> <!-- card.// -->
         @*<div class="table-responsive cart_info">
@@ -113,4 +120,20 @@ else
                 <input type="submit" value="Sipariş Gönder" class="btn btn-primary" />
             </div>*@
     </form>
+    <script>
+        function myFunction(val) {
+            $.ajax({
+                type: "POST",
+                url: /Home/UpdateCount / val,
+                async: true,
+                success: function (msg) {
+                    return msg;
+                },
+                error: function () {
+                    return "error";
+                }
+            })
+        }
+
+    </script>
 }

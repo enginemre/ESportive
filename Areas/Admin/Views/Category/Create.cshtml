@@ -1,25 +1,24 @@
 ﻿@model SportiveOrder.Models.CRUDCategory;
 @{
-    ViewData["Title"] = "Kategori Ekle";
+    ViewData["Title"] = Localizer["create_category"];
     Layout = "_AdminLayout";
 
 }
 
-<h1>Kategori Ekle</h1>
-
-<h4>Kategori Bilgileri</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="card mt-4 mx-auto" style="max-width: 380px;">
+    <div class="card-body">
+        <h4 class="card-title mb-4">@Localizer["create_category"]</h4>
         <form asp-action="Create" asp-controller="Category" asp-area="Admin" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="CategoryName" class="control-label"></label>
-                <input asp-for="CategoryName" class="form-control" />
-                <span asp-validation-for="CategoryName" class="text-danger"></span>
+            <div class="form-row">
+                <div class="col form-group">
+                    <label asp-for="CategoryName" class="control-label"></label>
+                    <input asp-for="CategoryName" class="form-control" />
+                    <span asp-validation-for="CategoryName" class="text-danger"></span>
+                </div>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" asp-action="Create" asp-controller="Category" asp-area="Admin" />
+                <button type="submit" class="btn btn-primary btn-block" asp-action="Create" asp-controller="Category" asp-area="Admin">@Localizer["save"]</button>
             </div>
         </form>
     </div>

@@ -10,6 +10,11 @@ namespace SportiveOrder.Repositories
 {
     public class CompanyRepositories : GenericRepository<Company>, ICompanyRepository
     {
+        public Company GetCompanyWUserId(string id)
+        {
+            using var context = new SportiveOrderContext();
+            return context.Company.Where(c => c.UserId == id).FirstOrDefault();
+        }
        
     }
 }

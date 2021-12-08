@@ -8,5 +8,6 @@ namespace SportiveOrder.Interfaces
 {
     public interface ICompanyRepository : IGenericRepositories<Company>
     {
+        public Company GetCompanyWUserId(string id);
     }
 }

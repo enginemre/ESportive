@@ -91,7 +91,7 @@ namespace SportiveOrder.Areas.Identity.Pages.Account
                     var role =_userManager.GetRolesAsync(user).Result;
                     if (role.Contains("Admin"))
                     {
-                        return RedirectToAction("Index", "Home", new { area = "Admin" });
+                        return RedirectToAction("Index", "Product", new { area = "Admin" });
                     }
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);

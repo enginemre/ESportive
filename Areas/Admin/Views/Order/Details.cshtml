@@ -1,48 +1,90 @@
 ﻿@model List<OrderItems>
 
 @{
-    ViewData["Title"] =  "Sipariş Detay";
+    ViewData["Title"] = "Sipariş Detay";
     Layout = "_AdminLayout";
 }
 
 
-<table class="table table-condensed">
-    <thead>
-        <tr class="cart_menu">
-            <td class="image">Ürün</td>
-            <td class="description"></td>
-            <td class="price">Alış Fiyatı</td>
-            <td class="quantity">Miktar</td>
-            <td class="total">Toplam</td>
-            <td></td>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td class="cart_product">
-                    <a><img src="images/product1.jpg" alt=""></a>
-                </td>
-                <td class="cart_description">
-                    <h4><a href="">@item.Product.ProductName</a></h4>
-                    <p>Web ID:@item.Product.ProductId</p>
-                </td>
-                <td class="cart_price">
-                    <p>@item.Product.PurchasePrice</p>
-                </td>
-                <td class="cart_quantity">
-                    <div class="cart_quantity_button">
-                        <a class="cart_quantity_input">@item.Quantity</a>
-                    </div>
-                </td>
-                <td class="cart_total">
-                    <p class="cart_total_price">@item.Product.PurchasePrice</p>
-                </td>
-                <td class="cart_delete">
-                    <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                </td>
+<div class="card my-4">
+
+    <table class="table table-borderless table-shopping-cart">
+        <thead class="text-muted">
+            <tr class="small text-uppercase">
+                <th scope="col">@Localizer["products"]</th>
+                <th scope="col" width="120">@Localizer["quantity"]</th>
+                <th scope="col" width="120">@Localizer["price"]</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                var sum = item.Quantity * item.Product.SalePrice;
+                <tr>
+                    <td>
+                        <figure class="itemside">
+                            <div class="aside">
+                                <img src="~/images/product1.jpg" class="img-sm" />
+                            </div>
+                            <figcaption class="info">
+                                <a href="#" class="title text-dark">@item.Product.ProductName</a>
+                                <p class="text-muted small"><span>@Localizer["product_group"]</span>: @item.Product.ProductGroup <br> @Localizer["size"]: @item.Product.Size</p>
+                            </figcaption>
+                        </figure>
+                    </td>
+                    <td>
+                        <p class="price ">@item.Quantity</p>
+                    </td>
+                    <td>
+                        <div class="price-wrap">
+                            <var class="price">@sum ₺</var>
+                            <small class="text-muted"> @item.Product.SalePrice ₺ </small>
+                        </div> <!-- price-wrap .// -->
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+</div> <!-- card.// -->
+@*<table class="table table-condensed">
+        <thead>
+            <tr class="cart_menu">
+                <td class="image">Ürün</td>
+                <td class="description"></td>
+                <td class="price">Alış Fiyatı</td>
+                <td class="quantity">Miktar</td>
+                <td class="total">Toplam</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="cart_product">
+                        <a><img src="images/product1.jpg" alt=""></a>
+                    </td>
+                    <td class="cart_description">
+                        <h4><a href="">@item.Product.ProductName</a></h4>
+                        <p>Web ID:@item.Product.ProductId</p>
+                    </td>
+                    <td class="cart_price">
+                        <p>@item.Product.PurchasePrice</p>
+                    </td>
+                    <td class="cart_quantity">
+                        <div class="cart_quantity_button">
+                            <a class="cart_quantity_input">@item.Quantity</a>
+                        </div>
+                    </td>
+                    <td class="cart_total">
+                        <p class="cart_total_price">@item.Product.PurchasePrice</p>
+                    </td>
+                    <td class="cart_delete">
+                        <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>*@

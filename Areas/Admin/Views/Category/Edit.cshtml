@@ -1,13 +1,10 @@
 ﻿@model CRUDCategory;
 @{
-    ViewData["Title"] = "Kategori Düzenle";
+    ViewData["Title"] = Localizer["edit"];
     Layout = "_AdminLayout";
 }
 
-
-<h4>Kategori Düzenle</h4>
-<hr />
-<div class="row">
+<div class="row mt-5" >
     <div class="col-md-4">
         <form asp-action="Index" asp-controller="Category" asp-area="Admin">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>

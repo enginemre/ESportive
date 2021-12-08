@@ -1,104 +1,79 @@
 ﻿@model IEnumerable<Product>
 
 @{
-    ViewData["Title"] = "Ürünler";
+    ViewData["Title"] = Localizer["product"];
     Layout = "_AdminLayout";
 }
 
-<style>
-    .table_wrapper {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-    }
-</style>
-<div class="m-4">
+@if (ViewBag.msg != null)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        @ViewBag.msg
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+<div class="m-2">
     <p>
-        <a class="btn btn-outline-warning" asp-area="Admin" asp-controller="Product" asp-action="Create">Ürün Ekle</a>
+        <a class="btn btn-primary mt-5 mb-2" asp-area="Admin" asp-controller="Product" asp-action="Create">@Localizer["create_new"]</a>
     </p>
 </div>
 
 <div class="container"></div>
-<table class="table table_wrapper">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ProductName)
+               @Localizer["product_name"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StockCode)
+                @Localizer["stock_code"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Barcode)
+                @Localizer["stock"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Size)
+               @Localizer["purchase_price"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Color)
+                 @Localizer["sale_price"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.KDV)
+                @Localizer["product_group"]
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Stock)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SalePrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PurchasePrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductGroup)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category.CategoryName)
-            </th>
+      
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StockCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Barcode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Size)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Color)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.KDV)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Stock)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SalePrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PurchasePrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductGroup)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.CategoryName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StockCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Stock)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurchasePrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SalePrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductGroup)
+                </td>
+            
+                <td class="text-right" style="width:200px;">
+                    <a asp-action="Edit" asp-route-id="@item.ProductId"  class="btn btn-info mx-1">@Localizer["edit"]</a>
+                    <a asp-action="Delete" asp-controller="Product" asp-area="Admin" asp-route-id="@item.ProductId" class="btn btn-danger">@Localizer["delete"]</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

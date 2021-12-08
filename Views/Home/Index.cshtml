@@ -1,16 +1,16 @@
 ﻿@{
-    ViewData["Title"] = "Ana Sayfa";
+    ViewData["Title"] =  Localizer["title_home"];
 }
 
 
-@if (TempData["Msg"] != null)
+@if (TempData["MsgCode"] != null)
 {
-    <div class="alert alert-success alert-dismissible fade show m-4" role="alert">
-        <strong>@Localizer["added_cart"]</strong>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+<div class="mt-2 alert @(TempData["MsgCode"].ToString() == "1"? "alert-danger":"alert-success")" alert-dismissible fade show m-4" role="alert">
+    <strong>@(TempData["MsgCode"].ToString() == "1"? @Localizer["message_error_product"] : @Localizer["added_cart"])</strong> @(TempData["MsgCode"].ToString() == "1"? @Localizer["message_same_product"] :"")
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
 }
 
 
@@ -22,10 +22,7 @@
 
             </aside>
             <div class="col-sm-9">
-
-                @await Component.InvokeAsync("Product", new { category_id = ViewBag.category_id });
-
-
+                @await Component.InvokeAsync("Product", new { category_id = ViewBag.category_id,price_sort =ViewBag.price_sort,searchString =ViewBag.search  })
 
             </div>
         </div>

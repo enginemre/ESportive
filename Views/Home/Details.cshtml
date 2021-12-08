@@ -2,6 +2,7 @@
 
 @{
     Layout = "_Layout";
+    ViewData["Title"] = Localizer["title_product_details"];
 }
 
     <div class="row p-4">
@@ -26,7 +27,7 @@
 
 
                                 <div class="mb-3 my-3">
-                                    <var class="price h4">@Model.product.PurchasePrice ₺</var>
+                                    <var class="price h4">@Model.product.SalePrice ₺</var>
 
                                 </div>
 
@@ -102,4 +103,15 @@
                 </form>
         </div>
     </div>
+
+    <script type="text/javascript">
+        @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Error"].Errors.Count > 0)
+        {
+            <text>
+            $(document).ready(function() {
+                alert('@ViewData.ModelState["Error"].Errors.First().ErrorMessage');
+            });
+            </text>
+        }
+    </script>
   

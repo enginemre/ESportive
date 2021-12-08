@@ -123,6 +123,9 @@
   <data name="added_cart" xml:space="preserve">
     <value>Successfully added</value>
   </data>
+  <data name="address" xml:space="preserve">
+    <value>Address</value>
+  </data>
   <data name="add_cart" xml:space="preserve">
     <value>Add Cart</value>
   </data>
@@ -131,6 +134,9 @@
   </data>
   <data name="barcode" xml:space="preserve">
     <value>Barcode</value>
+  </data>
+  <data name="Beni Hatırla" xml:space="preserve">
+    <value>Remember Me</value>
   </data>
   <data name="cart" xml:space="preserve">
     <value>Cart</value>
@@ -141,14 +147,74 @@
   <data name="category" xml:space="preserve">
     <value>All Categories</value>
   </data>
+  <data name="category_name" xml:space="preserve">
+    <value>Category Name</value>
+  </data>
   <data name="cheapest" xml:space="preserve">
     <value>Cheapest</value>
+  </data>
+  <data name="city" xml:space="preserve">
+    <value>City</value>
   </data>
   <data name="color" xml:space="preserve">
     <value>Color</value>
   </data>
+  <data name="company" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="company_name" xml:space="preserve">
+    <value>Company Name</value>
+  </data>
+  <data name="confirm_password" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="continue_shopping" xml:space="preserve">
+    <value>Continue shopping</value>
+  </data>
+  <data name="create_new" xml:space="preserve">
+    <value>Create New</value>
+  </data>
+  <data name="create_order" xml:space="preserve">
+    <value>Complate Order</value>
+  </data>
+  <data name="create_product" xml:space="preserve">
+    <value>Create Product</value>
+  </data>
+  <data name="create_user" xml:space="preserve">
+    <value>Create User</value>
+  </data>
+  <data name="delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
   <data name="details" xml:space="preserve">
     <value>Details</value>
+  </data>
+  <data name="edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="empty_cart" xml:space="preserve">
+    <value>Cart is empty</value>
+  </data>
+  <data name="empty_cart_link" xml:space="preserve">
+    <value>click here</value>
+  </data>
+  <data name="empty_cart_message" xml:space="preserve">
+    <value>If you want to continue shopping</value>
+  </data>
+  <data name="empty_order" xml:space="preserve">
+    <value>Order is empty</value>
+  </data>
+  <data name="empty_order_link" xml:space="preserve">
+    <value>click here</value>
+  </data>
+  <data name="empty_order_message" xml:space="preserve">
+    <value>If you want to continue shopping</value>
+  </data>
+  <data name="error_cart" xml:space="preserve">
+    <value>Same product in the cart</value>
   </data>
   <data name="expensive" xml:space="preserve">
     <value>Most Expensive</value>
@@ -156,17 +222,47 @@
   <data name="founded_item_count" xml:space="preserve">
     <value>Items found</value>
   </data>
+  <data name="Kullanıcı Adı" xml:space="preserve">
+    <value>UserName</value>
+  </data>
   <data name="login" xml:space="preserve">
     <value>Login</value>
   </data>
   <data name="logout" xml:space="preserve">
     <value>Logout</value>
   </data>
+  <data name="message_added_product" xml:space="preserve">
+    <value>Successfully Added</value>
+  </data>
+  <data name="message_error_product" xml:space="preserve">
+    <value>Failed to Add</value>
+  </data>
+  <data name="message_same_product" xml:space="preserve">
+    <value>Same product in the cart</value>
+  </data>
+  <data name="operations" xml:space="preserve">
+    <value>Operations</value>
+  </data>
   <data name="orders" xml:space="preserve">
     <value>Orders</value>
   </data>
+  <data name="password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="phone" xml:space="preserve">
+    <value>Telephone</value>
+  </data>
+  <data name="post_code" xml:space="preserve">
+    <value>Post Code</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>Price</value>
+  </data>
   <data name="price_range" xml:space="preserve">
     <value>Price Range</value>
+  </data>
+  <data name="products" xml:space="preserve">
+    <value>Products</value>
   </data>
   <data name="product_alert" xml:space="preserve">
     <value>No products found in this category</value>
@@ -177,11 +273,29 @@
   <data name="product_id" xml:space="preserve">
     <value>Product Id</value>
   </data>
+  <data name="product_name" xml:space="preserve">
+    <value>Product Name</value>
+  </data>
+  <data name="province" xml:space="preserve">
+    <value>Province</value>
+  </data>
   <data name="purchase_price" xml:space="preserve">
     <value>Purchase P.</value>
   </data>
   <data name="quantity" xml:space="preserve">
     <value>Quantity</value>
+  </data>
+  <data name="remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="reset_password" xml:space="preserve">
+    <value>Reset Password</value>
+  </data>
+  <data name="role_name" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="sale_price" xml:space="preserve">
+    <value>Sale Price</value>
   </data>
   <data name="save" xml:space="preserve">
     <value>Save</value>
@@ -192,7 +306,43 @@
   <data name="size" xml:space="preserve">
     <value>Size</value>
   </data>
+  <data name="sort" xml:space="preserve">
+    <value>Ordered By</value>
+  </data>
+  <data name="stock" xml:space="preserve">
+    <value>Stock</value>
+  </data>
   <data name="stock_code" xml:space="preserve">
     <value>Stock Code</value>
+  </data>
+  <data name="title_cart" xml:space="preserve">
+    <value>Cart</value>
+  </data>
+  <data name="title_home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="title_login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="title_order" xml:space="preserve">
+    <value>Orders</value>
+  </data>
+  <data name="title_order_details" xml:space="preserve">
+    <value>Order Details</value>
+  </data>
+  <data name="title_product_details" xml:space="preserve">
+    <value>Product Detail</value>
+  </data>
+  <data name="total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="user" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="username" xml:space="preserve">
+    <value>User Name</value>
+  </data>
+  <data name="Şifre" xml:space="preserve">
+    <value>Password</value>
   </data>
 </root>

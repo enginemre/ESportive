@@ -18,7 +18,7 @@ namespace SportiveOrder.Repositories
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public void AddCart(CartItem item)
+        public int AddCart(CartItem item)
         {
             var comingList = _httpContextAccessor.HttpContext.Session.GetObject<Cart>("cart");
             
@@ -30,13 +30,26 @@ namespace SportiveOrder.Repositories
                     sum = 0
                 };
                 comingList.products.Add(item);
+                comingList.sum = item.quantity * item.product.SalePrice;
+                _httpContextAccessor.HttpContext.Session.SetObject("cart", comingList);
+                return 0;
             }
             else
             {
-                comingList.sum += item.quantity;
+                foreach (var products in comingList.products)
+                {
+                    if(products.product.ProductId == item.product.ProductId)
+                    {
+                        return 1;
+                    }
+                }
+                
+                comingList.sum += (item.quantity*item.product.SalePrice) ;
                 comingList.products.Add(item);
+                _httpContextAccessor.HttpContext.Session.SetObject("cart", comingList);
+                return 0;
             }
-            _httpContextAccessor.HttpContext.Session.SetObject("cart", comingList);
+           
             
         }
 
@@ -52,14 +65,23 @@ namespace SportiveOrder.Repositories
             {
                 if(item.product.ProductId == id)
                 {
+                    comingList.sum -= (item.quantity * item.product.SalePrice);
                     comingList.products.Remove(item);
                     break;
                 }
             }
+            if(comingList.products.Count == 0)
+            {
+                comingList.sum = 0;
+            }
             
             _httpContextAccessor.HttpContext.Session.SetObject("cart", comingList);
         }
-
+        public void ClearCart()
+        {
+            Cart comingList = null;
+            _httpContextAccessor.HttpContext.Session.SetObject("cart", comingList);
+        }
        
 
        

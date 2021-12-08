@@ -1,12 +1,20 @@
 ﻿@model List<Product>;
+@{
+    var state = ViewBag.price_sort;
+    var selectList = new List<SelectListItem>
+            {
+                new SelectListItem {Text = Localizer["sort"], Value = ""},
+                new SelectListItem {Text = @Localizer["cheapest"], Value = "1"},
+                new SelectListItem {Text = @Localizer["expensive"], Value = "2"}
+            };
 
+ }
     <header class="border-bottom mb-4 pb-3">
         <div class="form-inline">
             <span class="mr-md-auto">@Model.Count <span> @Localizer["founded_item_count"]</span> </span>
-            <select class="mr-2 form-control">
-                <option>@Localizer["cheapest"]</option>
-                <option>@Localizer["expensive"]</option>
-            </select>
+            <form method="get" asp-action="Index" asp-controller="Home" asp-area="">
+                <select asp-for="@state" name="state" asp- class="mr-2 form-control" onchange="this.form.submit();" asp-items="selectList"></select>
+            </form>
         </div>
     </header>
   

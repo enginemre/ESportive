@@ -1,48 +1,69 @@
 ﻿@model List<SportiveOrder.Entity.Order>;
 
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<SharedResources> loc;
+@{
+    ViewData["Title"] = loc["title_order"];
+}
+
+
 
 @if (Model == null || Model.Count < 1)
 {
-    <div>
-        <p>
-            Siparişiniz bulunamadı
-        </p>
+    <div class="d-flex justify-content-center mt-5">
+        <h4 class="mb-3">@Localizer["empty_order"]</h4> <br />
+
+    </div>
+    <div class="d-flex justify-content-center">
+        <p class="text-muted">@Localizer["empty_order_message"]</p> <a asp-action="Index" asp-controller="Home" asp-area="">&nbsp; @Localizer["empty_order_link"]</a>
     </div>
 }
 else
 {
-   <div>
-     
-       <table class="table table-condensed">
-           <thead>
-               <tr class="cart_menu">
-                   <td class="image">Sipariş Numarası</td>
-                   <td class="price">Sipariş Tarihi</td>
-                   <td class="total">Toplam</td>
-                   <td></td>
-               </tr>
-           </thead>
-           <tbody>
-               @foreach (var item in Model)
-               {
-                   <tr>
-                       <td class="cart_description">
-                           <h4><a asp-action="Details" asp-controller="Order" asp-route-orderId="@item.OrderId">@item.OrderId</a></h4>
-                           <p>User ID:@item.UserId</p>
-                       </td>
-                       <td class="cart_total">
-                           <p class="cart_total_price">@item.CreatingAt</p>
-                       </td>
-                       <td class="cart_delete">
-                           <p>selamms</p>
-                       </td>
-                   </tr>
-               }
 
-           </tbody>
-       </table>
-      
-   </div>
-}   
+
+    @foreach (var item in Model)
+    {
+        decimal total = 0;
+        foreach (var products in item.OrderItems)
+        {
+            total += (products.Product.SalePrice * products.Quantity);
+        }
+        <article class="card my-2">
+            <header class="card-header">
+                <strong class="d-inline-block mr-3"><span>@ViewData["order_id"]:</span> @item.OrderId</strong>
+                <span>@ViewData["creating_at"]: @item.CreatingAt</span>
+            </header>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <p>
+                            <strong> @loc["user"]: </strong>  @item.User.UserName<br>
+                            <strong>
+                                @loc["phone"]:
+                            </strong> @item.User.PhoneNumber <br>
+                            <strong>
+                                @loc["email"]:
+                            </strong>@item.User.Email <br>
+                            <strong>
+                                @loc["company"]:
+                            </strong> @item.User.UserCompany.CompanyName<br>
+                            <strong>
+                                @loc["address"] :
+                            </strong> @item.User.UserCompany.CompanyAddress.City, @item.User.UserCompany.CompanyAddress.Province,  @item.User.UserCompany.CompanyAddress.PostCode <br>
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <h6 class="text-muted">@loc["total"]: @total ₺</h6>
+                        <a asp-action="Details" asp-controller="Order" asp-route-orderId="@item.OrderId" class="btn btn-danger btn-round">@loc["details"]</a>
+                    </div>
+                </div> <!-- row.// -->
+            </div> <!-- card-body .// -->
+        </article>
+        <!-- order-group.// -->
+
+
+    }
+}
 
 

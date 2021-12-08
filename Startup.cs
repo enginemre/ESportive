@@ -23,6 +23,7 @@ using System.Reflection;
 using SportiveOrder.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Mvc.Razor;
+using SportiveOrder.Areas.Identity.Pages.Account;
 
 namespace SportiveOrder
 {
@@ -38,11 +39,32 @@ namespace SportiveOrder
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var supportedCultures = new List<CultureInfo>
+            {
+                 new CultureInfo("tr-TR"),
+                 new CultureInfo("en-US")
+
+            };
             services.AddLocalization(options =>
             {
                 options.ResourcesPath = "Resources";
+
             });
+            services.Configure<RequestLocalizationOptions>(opt =>
+            {
+                opt.DefaultRequestCulture = new RequestCulture("tr-TR");
+                opt.SupportedCultures = supportedCultures;
+                opt.SupportedUICultures = supportedCultures;
+                opt.RequestCultureProviders = new List<IRequestCultureProvider>
+                {
+                    new QueryStringRequestCultureProvider(),
+                    new CookieRequestCultureProvider()
+                };
+            });
+
             services.AddControllersWithViews().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization().AddRazorRuntimeCompilation();
+
+
             // http ye sepet reposundan ulaþýlmasý saðlanýyor.
             services.AddHttpContextAccessor();
             // Identity için razor pages ekleniyor
@@ -74,7 +96,7 @@ namespace SportiveOrder
                 options.SignIn.RequireConfirmedAccount = false;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
                 options.SignIn.RequireConfirmedEmail = false;
-            }).AddEntityFrameworkStores<SportiveOrderContext>().AddTokenProvider<DataProtectorTokenProvider<AppUser>>(TokenOptions.DefaultProvider);
+            }).AddEntityFrameworkStores<SportiveOrderContext>().AddErrorDescriber<TurkishIdentityErrorDescriber>().AddTokenProvider<DataProtectorTokenProvider<AppUser>>(TokenOptions.DefaultProvider);
             // Authorize için yönlendirme ayarlarý yapýlýyor.
             services.ConfigureApplicationCookie(opt =>
             {
@@ -98,17 +120,8 @@ namespace SportiveOrder
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            var supportedCultures = new List<CultureInfo>
-            {
-                 new CultureInfo("tr-TR"),
-                 new CultureInfo("en-US"),
-            };
-            app.UseRequestLocalization(new RequestLocalizationOptions
-            {
-                SupportedCultures = supportedCultures,
-                SupportedUICultures = supportedCultures,
-                DefaultRequestCulture = new RequestCulture("tr-TR")
-            });
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -119,7 +132,11 @@ namespace SportiveOrder
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            // Localization
+            var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            options.Value.SetDefaultCulture("tr-TR");
+            app.UseRequestLocalization(options.Value);
+            // Api documentation
             app.UseOpenApi();
             app.UseSwaggerUi3();
             app.UseHttpsRedirection();

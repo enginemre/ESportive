@@ -1,62 +1,59 @@
 ﻿@model SportiveOrder.Models.CRUDUser
+@using Microsoft.Extensions.Localization;
 
+@inject IStringLocalizer<SharedResources> Localizer;
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = Localizer["edit"];
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Edit</h1>
-
-<h4>CRUDUser</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="card mt-4">
+    <div class="card-body">
+        <h4 class="card-title mb-4">@Model.UserName</h4>
+        <form asp-action="Edit" asp-controller="User" asp-area="Admin" method="post">
+            <div asp-validation-summary="All" role="alert">
+            </div>
             <input type="hidden" asp-for="UserId" />
-            <div class="form-group">
-                <label asp-for="UserCompany.CompanyName" class="control-label"></label>
-                <input asp-for="UserCompany.CompanyName" class="form-control" />
-                <span asp-validation-for="UserCompany.CompanyName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserCompany.CompanyAddress.City" class="control-label"></label>
-                <input asp-for="UserCompany.CompanyAddress.City" class="form-control" />
-                <span asp-validation-for="UserCompany.CompanyAddress.City" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserCompany.CompanyAddress.Province" class="control-label"></label>
-                <input asp-for="UserCompany.CompanyAddress.Province" class="form-control" />
-                <span asp-validation-for="UserCompany.CompanyAddress.Province" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserCompany.CompanyAddress.PostCode" class="control-label"></label>
-                <input asp-for="UserCompany.CompanyAddress.PostCode" class="form-control" />
-                <span asp-validation-for="UserCompany.CompanyAddress.PostCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control" />
-                <span asp-validation-for="UserName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+            <input type="hidden" asp-for="UserName" />
+            <div class="form-row">
+                <div class="col form-group">
+                    <label class=" col-form-label">@Localizer["company_name"]</label>
+                    <input asp-for="UserCompany.CompanyName" class="form-control" />
+                    <span asp-validation-for="UserCompany.CompanyName" class="text-danger"></span>
+                </div> <!-- form-group end.// -->
+                <div class="col form-group">
+                    <label>@Localizer["city"]</label>
+                    <input asp-for="UserCompany.CompanyAddress.City" class="form-control" />
+                    <span asp-validation-for="UserCompany.CompanyAddress.City" class="text-danger"></span>
+                </div> <!-- form-group end.// -->
+            </div> <!-- form-row.// -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>@Localizer["province"]</label>
+                    <input asp-for="UserCompany.CompanyAddress.Province" class="form-control" />
+                    <span asp-validation-for="UserCompany.CompanyAddress.Province" class="text-danger"></span>
+                </div> <!-- form-group end.// -->
+                <div class="form-group col-md-6">
+                    <label>@Localizer["email"]</label>
+                    <input asp-for="Email" class="form-control" readonly="readonly" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div> <!-- form-group end.// -->
+            </div> <!-- form-row.// -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>@Localizer["post_code"]</label>
+                    <input asp-for="UserCompany.CompanyAddress.PostCode" class="form-control" />
+                    <span asp-validation-for="UserCompany.CompanyAddress.PostCode" class="text-danger"></span>
+                </div> <!-- form-group end.// -->
+                <div class="form-group col-md-6">
+                    <label>@Localizer["phone"]</label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div> <!-- form-group end.// -->
+            </div> <!-- form-row.// -->
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+            <button type="submit" class="btn btn-primary btn-block">@Localizer["save"]</button>
+        </form>
+    </div> <!-- card-body.// -->
+</div> <!-- card .// -->
 

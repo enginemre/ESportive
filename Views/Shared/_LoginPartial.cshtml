@@ -11,11 +11,11 @@
         @if (User.IsInRole("Admin"))
         {
 
-            <a class="dropdown-item" asp-area="Admin" asp-action="Index">@UserManager.GetUserName(User)</a>
+            <a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">@UserManager.GetUserName(User)</a>
         }
         else
         {
-            <a class="dropdown-item" asp-action="Account" asp-controller="Home">@UserManager.GetUserName(User)</a>
+            <a class="dropdown-item" asp-action="Index" asp-controller="Home">@UserManager.GetUserName(User)</a>
             <a class="dropdown-item" asp-action="Index" asp-controller="Order">@Localizer["orders"]</a>
             <a class="dropdown-item" asp-action="Cart" asp-controller="Home">@Localizer["cart"]</a>
 

@@ -1,9 +1,22 @@
 ﻿
-
+@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.Extensions.Options
 @using Microsoft.AspNetCore.Identity
 @using SportiveOrder.Areas.Identity.Data
+@inject IOptions<RequestLocalizationOptions> LocOptions
 
 @inject SignInManager<AppUser> SignInManager
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var currentCulture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
+    var currentUICulture = System.Threading.Thread.CurrentThread.CurrentUICulture.Name;
+    var cultureItems = LocOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.NativeName })
+        .ToList();
+    var returnUrl = string.IsNullOrEmpty(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value + Context.Request.QueryString.Value}";
+
+}
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -23,14 +36,14 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-sm-4 col-md-4 col-5">
-                        <a asp-action="Index" asp-controller="Home"><p style="font-size:25px;">ESprotive</p></a>
+                        <a class="navbar-brand" asp-action="Index" asp-controller="Home" asp-area=""><p style="font-size:25px;">ESprotive</p></a>
 
 
                     </div>
                     <div class="col-lg-4 col-xl-5 col-sm-8 col-md-4 d-none d-md-block">
-                        <form action="#" class="search">
+                        <form asp-action="Index" asp-controller="Home" asp-area="" class="search" method="get">
                             <div class="input-group w-100">
-                                <input type="text" class="form-control" style="width:55%;" placeholder="@Localizer["search"]">
+                                <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" class="form-control" style="width:55%;" placeholder="@Localizer["search"]">
                                 <div class="input-group-append">
                                     <button class="btn btn-primary" type="submit">
                                         <i class="fa fa-search"></i>
@@ -41,9 +54,9 @@
                     </div> <!-- col.// -->
                     <div class="col-lg-5 col-xl-4 col-sm-8 col-md-4 col-7">
                         <div class="d-flex justify-content-end">
-                            @if (SignInManager.IsSignedIn(User))
+                            @if (SignInManager.IsSignedIn(User) && User.IsInRole("Member"))
                             {
-                                <a  asp-action="Cart" asp-controller="Home" class="widget-header mr-3">
+                                <a asp-action="Cart" asp-controller="Home" class="widget-header mr-3">
                                     <div class="icon">
                                         <i class="icon-sm rounded-circle border fa fa-shopping-cart"></i>
                                     </div>
@@ -64,23 +77,6 @@
             </div> <!-- container.// -->
         </section> <!-- header-main .// -->
     </header>
-    @*<header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                <div class="container">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ESportive</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-
-                        <ul class="navbar-nav flex-grow-1">
-                        </ul>
-                        <partial name="_LoginPartial" />
-                    </div>
-                </div>
-            </nav>
-        </header>*@
     <div class="container theme">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -89,7 +85,17 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - SportiveOrder - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <a>  &copy; 2021 - ESportive</a>
+            <div class="float-right my-2">
+                <form id="selectLanguage" asp-controller="Home" asp-area=""
+                      asp-action="SetLanguage" asp-route-returnUrl="@returnUrl"
+                      method="post" class="form-horizontal" role="form">
+                    <select class="form-control" name="culture" onchange="this.form.submit();"
+                            asp-for="@requestCulture.RequestCulture.UICulture.Name"
+                            asp-items="cultureItems">
+                    </select>
+                </form>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

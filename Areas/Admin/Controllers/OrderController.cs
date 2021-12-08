@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SportiveOrder.Areas.Identity.Data;
+using SportiveOrder.Entity;
 using SportiveOrder.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -16,19 +17,41 @@ namespace SportiveOrder.Areas.Admin.Controllers
         private readonly IOrderItemsRepository _orderItemsRepository;
         private readonly UserManager<AppUser> _userManager;
         private readonly IProductRepository _productRepository;
+        private readonly ICompanyRepository _companyRepository;
+        private readonly IAddressRepository _addressRepository;
 
-        public OrderController(IOrderRepository orderRepository,IProductRepository productRepository, UserManager<AppUser> userManager,IOrderItemsRepository orderItemsRepository)
+        public OrderController(IAddressRepository addressRepository,ICompanyRepository companyRepository, IOrderRepository orderRepository, IProductRepository productRepository, UserManager<AppUser> userManager, IOrderItemsRepository orderItemsRepository)
         {
             _orderRepository = orderRepository;
             _userManager = userManager;
             _orderItemsRepository = orderItemsRepository;
             _productRepository = productRepository;
+            _companyRepository = companyRepository;
+            _addressRepository = addressRepository;
         }
-        public IActionResult Indexs()
+        public async Task<IActionResult> Index()
         {
 
-            var list = _orderRepository.GetEntities();
-            return View(list);
+            var orders = new List<Order>();
+            var orderIds = _orderRepository.GetEntities();
+           
+            foreach (var item in orderIds)
+            {
+                var user = await _userManager.FindByIdAsync(item.UserId);
+                var orderProducts = _orderItemsRepository.GetOrderProducts(item.OrderId);
+                foreach (var orderItem in orderProducts)
+                {
+                    orderItem.Product = _productRepository.GetEntity(orderItem.ProductId);
+                }
+                item.User = user;
+                item.OrderItems = orderProducts;
+                item.User.UserCompany = _companyRepository.GetCompanyWUserId(item.UserId);
+                item.User.UserCompany.CompanyAddress = _addressRepository.GetEntity(item.User.CompanyId);
+                item.UserId = user.Id;
+
+            }
+
+            return View(orderIds);
         }
         public IActionResult Details(string orderId)
         {
@@ -39,7 +62,7 @@ namespace SportiveOrder.Areas.Admin.Controllers
             }
 
 
-            return View(orderItemList);  
+            return View(orderItemList);
         }
     }
 }
