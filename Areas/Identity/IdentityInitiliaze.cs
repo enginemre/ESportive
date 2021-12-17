@@ -13,12 +13,12 @@ namespace SportiveOrder.Areas.Identity
         {
             AppUser appUser = new AppUser
             {
-                UserName = "AdminT",
+                UserName = "b181210063@sakarya.edu.tr",
 
             };
-            if (userManager.FindByNameAsync("AdminT").Result == null)
+            if (userManager.FindByNameAsync("b181210063@sakarya.edu.tr").Result == null)
             {
-                var result = userManager.CreateAsync(appUser, "Ae1234").Result;
+                var result = userManager.CreateAsync(appUser, "123").Result;
             }
             if (roleManager.FindByNameAsync("Admin").Result == null)
             {

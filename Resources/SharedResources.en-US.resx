@@ -171,6 +171,9 @@
   <data name="continue_shopping" xml:space="preserve">
     <value>Continue shopping</value>
   </data>
+  <data name="create_category" xml:space="preserve">
+    <value>Create Category</value>
+  </data>
   <data name="create_new" xml:space="preserve">
     <value>Create New</value>
   </data>
@@ -182,6 +185,9 @@
   </data>
   <data name="create_user" xml:space="preserve">
     <value>Create User</value>
+  </data>
+  <data name="creating_at" xml:space="preserve">
+    <value>Creating at</value>
   </data>
   <data name="delete" xml:space="preserve">
     <value>Delete</value>
@@ -245,6 +251,9 @@
   </data>
   <data name="orders" xml:space="preserve">
     <value>Orders</value>
+  </data>
+  <data name="order_id" xml:space="preserve">
+    <value>Order Id</value>
   </data>
   <data name="password" xml:space="preserve">
     <value>Password</value>

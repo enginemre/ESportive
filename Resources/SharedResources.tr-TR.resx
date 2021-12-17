@@ -168,6 +168,9 @@
   <data name="continue_shopping" xml:space="preserve">
     <value>Alışverişe devam et</value>
   </data>
+  <data name="create_category" xml:space="preserve">
+    <value>Kategori Oluştur</value>
+  </data>
   <data name="create_new" xml:space="preserve">
     <value>Yeni Oluştur</value>
   </data>
@@ -179,6 +182,9 @@
   </data>
   <data name="create_user" xml:space="preserve">
     <value>Kullanıcı Oluştur</value>
+  </data>
+  <data name="creating_at" xml:space="preserve">
+    <value>Oluşturma Tarihi </value>
   </data>
   <data name="delete" xml:space="preserve">
     <value>Sil</value>
@@ -239,6 +245,9 @@
   </data>
   <data name="orders" xml:space="preserve">
     <value>Siparişlerim</value>
+  </data>
+  <data name="order_id" xml:space="preserve">
+    <value>Sipariş No</value>
   </data>
   <data name="password" xml:space="preserve">
     <value>Şifre</value>
