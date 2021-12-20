@@ -548,62 +548,9 @@ p:last-child {
   background-color: #E52D27;
   color: #fff;
 }
-.btn-instagram:hover {
-  color: #fff;
-}
 
-.btn-youtube {
-  background-color: #C8046C;
-  color: #fff;
-}
-.btn-youtube:hover {
-  color: #fff;
-}
 
-.btn-twitter {
-  background-color: #42AEEC;
-  color: #fff;
-}
-.btn-twitter:hover {
-  color: #fff;
-}
 
-.btn-google {
-  background-color: #ff7575;
-  color: #fff;
-}
-.btn-google:hover {
-  color: #fff;
-}
-
-.btn-icon {
-  width: calc(1.5em + 0.9rem + 2px);
-  text-align: center;
-  padding-left: 0;
-  padding-right: 0;
-}
-.btn-icon i {
-  line-height: 1;
-}
-
-.btn-light {
-  background-color: #fff;
-  border-color: #e4e4e4;
-}
-.btn-light i {
-  color: #969696;
-}
-.btn-light:hover {
-  background-color: #fff;
-  border-color: #989898;
-}
-
-.btn .text + i {
-  margin-left: 10px;
-}
-.btn i + .text {
-  margin-left: 10px;
-}
 
 .itemside {
   position: relative;
@@ -1088,53 +1035,6 @@ a[class*=card]:hover .title {
   max-width: 100%;
 }
 
-/* ================= RATINGS ============== */
-.label-rating {
-  margin-left: 7px;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-/* rating-list */
-.rating-stars {
-  display: inline-block;
-  vertical-align: middle;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  position: relative;
-  white-space: nowrap;
-  clear: both;
-}
-.rating-stars i {
-  font-size: 14px;
-  color: #ccc;
-  display: inline;
-}
-.rating-stars img {
-  height: 14px;
-  max-width: none;
-}
-.rating-stars li {
-  display: block;
-  text-overflow: clip;
-  white-space: nowrap;
-  z-index: 1;
-}
-.rating-stars li.stars-active {
-  z-index: 2;
-  position: absolute;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-}
-.rating-stars li.stars-active i {
-  color: orange;
-}
-.rating-stars.stars-lg img {
-  height: 20px;
-  max-width: none;
-}
 
 /* ================= TRACKING ============== */
 .tracking-wrap {
