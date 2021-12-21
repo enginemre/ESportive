@@ -225,6 +225,9 @@
   <data name="founded_item_count" xml:space="preserve">
     <value>Ürün bulundu</value>
   </data>
+  <data name="language" xml:space="preserve">
+    <value>Dil</value>
+  </data>
   <data name="login" xml:space="preserve">
     <value>Giriş Yap</value>
   </data>

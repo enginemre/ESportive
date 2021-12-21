@@ -231,6 +231,9 @@
   <data name="Kullanıcı Adı" xml:space="preserve">
     <value>UserName</value>
   </data>
+  <data name="language" xml:space="preserve">
+    <value>Language</value>
+  </data>
   <data name="login" xml:space="preserve">
     <value>Login</value>
   </data>
