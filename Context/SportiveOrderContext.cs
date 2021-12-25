@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SportiveOrder.Models;
+using SportiveOrder.CustomExtensions;
 
 namespace SportiveOrder.Context
 {
@@ -25,7 +26,7 @@ namespace SportiveOrder.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=ENGIN;Database=SportiveeOrder;Trusted_Connection=True;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=ESportive;Trusted_Connection=True;MultipleActiveResultSets=true");
             base.OnConfiguring(optionsBuilder);
         }
 
@@ -44,6 +45,7 @@ namespace SportiveOrder.Context
             modelBuilder.Entity<OrderItems>().HasOne<Product>(oi => oi.Product).WithMany(p => p.OrderItems).HasForeignKey(oi => oi.ProductId).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<OrderItems>().HasOne<Order>(oi => oi.Order).WithMany(o => o.OrderItems).HasForeignKey(oi => oi.OrderId).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<OrderItems>().HasIndex(I => new { I.OrderId, I.ProductId }).IsUnique();
+            InitiliazeData.InitiliazeDatas(modelBuilder);
             base.OnModelCreating(modelBuilder);
 
             

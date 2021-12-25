@@ -24,6 +24,7 @@ using SportiveOrder.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Mvc.Razor;
 using SportiveOrder.Areas.Identity.Pages.Account;
+using SportiveOrder.CustomExtensions;
 
 namespace SportiveOrder
 {
@@ -86,13 +87,14 @@ namespace SportiveOrder
             });
 
 
-            // Identity konfigrasyonlarý yapýlýyor.
+            // Identity konfigrasyonlarý yapýlýyor
             services.AddIdentity<AppUser, IdentityRole>(options =>
             {
-                options.Password.RequireDigit = true;
-                options.Password.RequireLowercase = true;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
                 options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequiredLength = 5;
+                options.Password.RequiredLength = 2;
                 options.SignIn.RequireConfirmedAccount = false;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
                 options.SignIn.RequireConfirmedEmail = false;
@@ -142,6 +144,7 @@ namespace SportiveOrder
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             IdentityInitiliaze.CreateAdmin(userManager, roleManager);
+            
             app.UseRouting();
             app.UseSession();
             app.UseCookiePolicy();

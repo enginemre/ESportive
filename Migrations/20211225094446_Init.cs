@@ -257,27 +257,6 @@ namespace SportiveOrder.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CRUDUser",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CompanyId = table.Column<int>(type: "int", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.ForeignKey(
-                        name: "FK_CRUDUser_Company_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Company",
-                        principalColumn: "CompanyId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "OrderItems",
                 columns: table => new
                 {
@@ -357,11 +336,6 @@ namespace SportiveOrder.Migrations
                 filter: "[UserId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CRUDUser_CompanyId",
-                table: "CRUDUser",
-                column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Order_UserId",
                 table: "Order",
                 column: "UserId");
@@ -404,16 +378,13 @@ namespace SportiveOrder.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "CRUDUser");
-
-            migrationBuilder.DropTable(
                 name: "OrderItems");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "Company");
 
             migrationBuilder.DropTable(
-                name: "Company");
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "Order");

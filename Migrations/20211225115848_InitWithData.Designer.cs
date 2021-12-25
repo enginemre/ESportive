@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SportiveOrder.Context;
 
 namespace SportiveOrder.Migrations
 {
     [DbContext(typeof(SportiveOrderContext))]
-    partial class SportiveOrderContextModelSnapshot : ModelSnapshot
+    [Migration("20211225115848_InitWithData")]
+    partial class InitWithData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

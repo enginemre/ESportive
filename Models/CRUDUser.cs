@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace SportiveOrder.Models
 {
-    [Keyless]
     public class CRUDUser
     {
         public string UserId { get; set; }

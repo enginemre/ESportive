@@ -10,7 +10,7 @@ using SportiveOrder.Context;
 namespace SportiveOrder.Migrations
 {
     [DbContext(typeof(SportiveOrderContext))]
-    [Migration("20211130181205_Init")]
+    [Migration("20211225094446_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -397,31 +397,6 @@ namespace SportiveOrder.Migrations
                     b.ToTable("Product");
                 });
 
-            modelBuilder.Entity("SportiveOrder.Models.CRUDUser", b =>
-                {
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RoleName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasIndex("CompanyId");
-
-                    b.ToTable("CRUDUser");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -532,17 +507,6 @@ namespace SportiveOrder.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("SportiveOrder.Models.CRUDUser", b =>
-                {
-                    b.HasOne("SportiveOrder.Entity.Company", "UserCompany")
-                        .WithMany()
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UserCompany");
                 });
 
             modelBuilder.Entity("SportiveOrder.Areas.Identity.Data.AppUser", b =>

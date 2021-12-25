@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using SportiveOrder.Areas.Identity.Data;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace SportiveOrder.Areas.Identity
                 UserName = "b181210063@sakarya.edu.tr",
 
             };
+
             if (userManager.FindByNameAsync("b181210063@sakarya.edu.tr").Result == null)
             {
                 var result = userManager.CreateAsync(appUser, "123").Result;
@@ -36,5 +38,7 @@ namespace SportiveOrder.Areas.Identity
                 
             }
         }
+    
+        
     }
 }
